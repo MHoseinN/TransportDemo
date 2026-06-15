@@ -1,0 +1,204 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="-5apH86mmFVffEYYRxrG">
+    <mxGraphModel dx="896" dy="544" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-1" parent="1" style="ellipse;fillColor=strokeColor;fontColor=light-dark(#333333,#cccccc);" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="140" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-2" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_Draft" vertex="1">
+          <mxGeometry height="40" width="112" x="91" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-3" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_PendingApproval" vertex="1">
+          <mxGeometry height="40" width="194" x="50" y="198" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-4" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_Rejected" vertex="1">
+          <mxGeometry height="40" width="139" x="20" y="996" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-5" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_Approved" vertex="1">
+          <mxGeometry height="40" width="143" x="150" y="312" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-6" parent="1" style="ellipse;shape=endState;fillColor=strokeColor;fontColor=light-dark(#333333,#cccccc);" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="264" y="1770" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-7" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_Dispatching" vertex="1">
+          <mxGeometry height="40" width="158" x="143" y="426" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-8" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_Assigned" vertex="1">
+          <mxGeometry height="40" width="137" x="102" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-9" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_ReadyToStart" vertex="1">
+          <mxGeometry height="40" width="169" x="385" y="654" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-10" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_InProgress" vertex="1">
+          <mxGeometry height="40" width="147" x="395" y="768" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-11" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_Recording" vertex="1">
+          <mxGeometry height="40" width="146" x="494" y="882" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-12" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_Traveling" vertex="1">
+          <mxGeometry height="40" width="140" x="497" y="996" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-13" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_Returned" vertex="1">
+          <mxGeometry height="40" width="140" x="497" y="1110" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-14" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_KMRecorded" vertex="1">
+          <mxGeometry height="40" width="162" x="486" y="1224" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-15" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_Executed" vertex="1">
+          <mxGeometry height="40" width="141" x="496" y="1338" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-16" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_CostCalculated" vertex="1">
+          <mxGeometry height="40" width="183" x="476" y="1452" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-17" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_PendingSettlement" vertex="1">
+          <mxGeometry height="40" width="211" x="461" y="1566" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-18" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_Settled" vertex="1">
+          <mxGeometry height="40" width="127" x="504" y="1680" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-19" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_ReassignmentNeeded" vertex="1">
+          <mxGeometry height="40" width="227" x="108" y="654" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-20" parent="1" style="rounded=1;arcSize=20;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Mission_Cancelled" vertex="1">
+          <mxGeometry height="40" width="146" x="214" y="882" as="geometry" />
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-21" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-1" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.52;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-2" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-22" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-2" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-3" value="Submit Request">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-23" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-3" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.3;exitY=1;entryX=0.36;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-4" value="Reject">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="35" y="275" />
+              <mxPoint x="35" y="959" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-24" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-3" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.64;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-5" value="Approve">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="221" y="275" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-25" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-4" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.01;entryY=0.41;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-6" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="89" y="1745" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-26" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-5" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-7" value="Start Dispatch">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-27" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-7" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.38;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-8" value="Assign Driver &amp; Vehicle">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="503" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-28" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-8" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.99;exitY=0.83;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-9" value="Validate Resources">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="469" y="617" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-29" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-9" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-10" value="Driver Starts Mission">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-30" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-10" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.74;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-11" value="Record Entry Time">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="567" y="845" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-31" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-11" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-12" value="Travel Started">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-32" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-12" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-13" value="Record Exit Time">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-33" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-13" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-14" value="Record Mileage">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-34" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-14" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-15" value="Execution Completed">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-35" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-15" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-16" value="Calculate Cost">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-36" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-16" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-17" value="Store Cost">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-37" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-17" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.49;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-18" value="Monthly Payroll Process">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-38" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-18" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.49;exitY=1;entryX=1.01;entryY=0.45;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-6" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="567" y="1745" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-39" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-8" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=0.42;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-19" value="Driver/Vehicle Invalid">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="617" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-40" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-19" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.62;exitY=0;entryX=0.68;entryY=1;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-7" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="302" y="617" />
+              <mxPoint x="302" y="503" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-41" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-10" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.07;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-20" value="Emergency Cancel">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="287" y="845" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y2znTRMxvEhevgUjz1-l-42" edge="1" parent="1" source="Y2znTRMxvEhevgUjz1-l-20" style="curved=1;startArrow=none;;fillColor=none;;exitX=0.5;exitY=1;entryX=1;entryY=0;rounded=0;" target="Y2znTRMxvEhevgUjz1-l-4" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="287" y="959" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
