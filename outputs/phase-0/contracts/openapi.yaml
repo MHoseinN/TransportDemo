@@ -1,0 +1,183 @@
+openapi: 3.0.3
+info:
+  title: Transportation and Mission Management API
+  version: 0.5.0
+  description: Phase 0.5 aligned API contract. Endpoints are placeholders; no business logic is implemented.
+servers:
+  - url: /api/v1
+tags:
+  - name: Provinces
+  - name: Cities
+  - name: Branches
+  - name: Vehicles
+  - name: Drivers
+  - name: Contracts
+  - name: MissionRequests
+  - name: Workflow
+  - name: Attendance
+  - name: Assignments
+  - name: Execution
+  - name: Reports
+paths:
+  /provinces:
+    get: { tags: [Provinces], summary: Search provinces, responses: { '501': { description: Not implemented } } }
+    post:
+      tags: [Provinces]
+      summary: Create province
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CreateProvinceRequest' } } } }
+      responses: { '501': { description: Not implemented } }
+  /provinces/{id}:
+    get: { tags: [Provinces], summary: Get province, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+    put:
+      tags: [Provinces]
+      summary: Update province
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/UpdateProvinceRequest' } } } }
+      responses: { '501': { description: Not implemented } }
+    delete: { tags: [Provinces], summary: Delete province, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+  /cities:
+    get: { tags: [Cities], summary: Search cities, responses: { '501': { description: Not implemented } } }
+    post:
+      tags: [Cities]
+      summary: Create city
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CreateCityRequest' } } } }
+      responses: { '501': { description: Not implemented } }
+  /cities/{id}:
+    get: { tags: [Cities], summary: Get city, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+    put: { tags: [Cities], summary: Update city, parameters: [ { $ref: '#/components/parameters/Id' } ], requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/UpdateCityRequest' } } } }, responses: { '501': { description: Not implemented } } }
+    delete: { tags: [Cities], summary: Delete city, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+  /branches:
+    get: { tags: [Branches], summary: Search branches, responses: { '501': { description: Not implemented } } }
+    post: { tags: [Branches], summary: Create branch, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CreateBranchRequest' } } } }, responses: { '501': { description: Not implemented } } }
+  /branches/{id}:
+    get: { tags: [Branches], summary: Get branch, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+    put: { tags: [Branches], summary: Update branch, parameters: [ { $ref: '#/components/parameters/Id' } ], requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/UpdateBranchRequest' } } } }, responses: { '501': { description: Not implemented } } }
+    delete: { tags: [Branches], summary: Delete branch, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+  /vehicles:
+    get: { tags: [Vehicles], summary: Search vehicles, responses: { '501': { description: Not implemented } } }
+    post: { tags: [Vehicles], summary: Create vehicle, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CreateVehicleRequest' } } } }, responses: { '501': { description: Not implemented } } }
+  /vehicles/{id}:
+    get: { tags: [Vehicles], summary: Get vehicle, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+    put: { tags: [Vehicles], summary: Update vehicle, parameters: [ { $ref: '#/components/parameters/Id' } ], requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/UpdateVehicleRequest' } } } }, responses: { '501': { description: Not implemented } } }
+    delete: { tags: [Vehicles], summary: Delete vehicle, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+  /drivers:
+    get: { tags: [Drivers], summary: Search drivers, responses: { '501': { description: Not implemented } } }
+    post: { tags: [Drivers], summary: Create driver, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CreateDriverRequest' } } } }, responses: { '501': { description: Not implemented } } }
+  /drivers/{id}:
+    get: { tags: [Drivers], summary: Get driver, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+    put: { tags: [Drivers], summary: Update driver, parameters: [ { $ref: '#/components/parameters/Id' } ], requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/UpdateDriverRequest' } } } }, responses: { '501': { description: Not implemented } } }
+    delete: { tags: [Drivers], summary: Delete driver, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+  /contracts:
+    get: { tags: [Contracts], summary: Search contracts, responses: { '501': { description: Not implemented } } }
+    post: { tags: [Contracts], summary: Create contract, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CreateContractRequest' } } } }, responses: { '501': { description: Not implemented } } }
+  /contracts/{id}:
+    get: { tags: [Contracts], summary: Get contract, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+    put: { tags: [Contracts], summary: Update contract, parameters: [ { $ref: '#/components/parameters/Id' } ], requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/UpdateContractRequest' } } } }, responses: { '501': { description: Not implemented } } }
+    delete: { tags: [Contracts], summary: Delete contract, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+  /mission-requests:
+    get: { tags: [MissionRequests], summary: Search mission requests, responses: { '501': { description: Not implemented } } }
+    post: { tags: [MissionRequests], summary: Create mission request placeholder, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/MissionRequestDto' } } } }, responses: { '501': { description: Not implemented } } }
+  /mission-requests/{id}:
+    get: { tags: [MissionRequests], summary: Get mission request, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+  /mission-requests/{id}/submit:
+    post: { tags: [MissionRequests], summary: Submit mission request placeholder, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+  /workflow-definitions:
+    get: { tags: [Workflow], summary: Search workflow definitions, responses: { '501': { description: Not implemented } } }
+    post: { tags: [Workflow], summary: Create workflow definition placeholder, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/WorkflowDefinitionDto' } } } }, responses: { '501': { description: Not implemented } } }
+  /workflow-definitions/{id}:
+    get: { tags: [Workflow], summary: Get workflow definition, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+  /workflow-instances/{id}:
+    get: { tags: [Workflow], summary: Get workflow instance, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+  /workflow-instances/{id}/actions:
+    post: { tags: [Workflow], summary: Create workflow action placeholder, parameters: [ { $ref: '#/components/parameters/Id' } ], requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/WorkflowActionDto' } } } }, responses: { '501': { description: Not implemented } } }
+  /workflow/inbox:
+    get: { tags: [Workflow], summary: Workflow inbox placeholder, responses: { '501': { description: Not implemented } } }
+  /workflow/history/{entityType}/{entityId}:
+    get:
+      tags: [Workflow]
+      summary: Workflow history placeholder
+      parameters:
+        - { name: entityType, in: path, required: true, schema: { type: string } }
+        - { name: entityId, in: path, required: true, schema: { type: string, format: uuid } }
+      responses: { '501': { description: Not implemented } }
+  /driver-attendance:
+    get: { tags: [Attendance], summary: Search attendance, responses: { '501': { description: Not implemented } } }
+    post: { tags: [Attendance], summary: Create attendance placeholder, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/DriverAttendanceDto' } } } }, responses: { '501': { description: Not implemented } } }
+  /mission-assignments:
+    get: { tags: [Assignments], summary: Search assignments, responses: { '501': { description: Not implemented } } }
+    post: { tags: [Assignments], summary: Create assignment placeholder, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/MissionAssignmentDto' } } } }, responses: { '501': { description: Not implemented } } }
+  /mission-executions:
+    get: { tags: [Execution], summary: Search executions, responses: { '501': { description: Not implemented } } }
+    post: { tags: [Execution], summary: Create execution placeholder, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/MissionExecutionDto' } } } }, responses: { '501': { description: Not implemented } } }
+  /mission-executions/{id}/recalculate:
+    post: { tags: [Execution], summary: Recalculate placeholder, parameters: [ { $ref: '#/components/parameters/Id' } ], responses: { '501': { description: Not implemented } } }
+  /reports/missions:
+    get: { tags: [Reports], summary: Mission reports placeholder, responses: { '501': { description: Not implemented } } }
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+  schemas:
+    ProvinceDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, name: { type: string }, code: { type: string }, isActive: { type: boolean } }
+    CityDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, provinceId: { type: string, format: uuid }, name: { type: string }, code: { type: string }, isActive: { type: boolean } }
+    BranchDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, parentId: { type: string, format: uuid, nullable: true }, cityId: { type: string, format: uuid, nullable: true }, code: { type: string }, name: { type: string }, isActive: { type: boolean } }
+    VehicleDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, branchId: { type: string, format: uuid }, plateNumber: { type: string }, chassisNumber: { type: string }, vehicleType: { type: string }, model: { type: string }, color: { type: string }, capacity: { type: integer }, ownershipType: { type: string, enum: [OrganizationOwned, Personal, Contracted] }, thirdPartyInsuranceExpiryDate: { type: string, format: date }, bodyInsuranceExpiryDate: { type: string, format: date, nullable: true }, isActive: { type: boolean }, isAvailable: { type: boolean }, description: { type: string } }
+    DriverDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, branchId: { type: string, format: uuid }, firstName: { type: string }, lastName: { type: string }, fatherName: { type: string }, nationalCode: { type: string }, identityNumber: { type: string }, birthPlace: { type: string }, birthDate: { type: string, format: date, nullable: true }, mobileNumber: { type: string }, drivingLicenseNumber: { type: string }, drivingLicenseExpiryDate: { type: string, format: date, nullable: true }, insuranceExpiryDate: { type: string, format: date, nullable: true }, isActive: { type: boolean } }
+    ContractDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, driverId: { type: string, format: uuid }, vehicleId: { type: string, format: uuid, nullable: true }, contractNumber: { type: string }, startDate: { type: string, format: date }, endDate: { type: string, format: date }, hourlyRate: { type: number }, goKmRate: { type: number }, returnKmRate: { type: number }, sleepHourRate: { type: number }, isActive: { type: boolean }, calculationRules: { type: array, items: { $ref: '#/components/schemas/ContractCalculationRuleDto' } } }
+    ContractCalculationRuleDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, contractId: { type: string, format: uuid }, ruleCode: { type: string }, strategyCode: { type: string }, priority: { type: integer }, configurationJson: { type: string }, isActive: { type: boolean } }
+    MissionRequestDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, requestNumber: { type: string }, requesterUserId: { type: string }, requesterDisplayName: { type: string }, requesterBranchId: { type: string, format: uuid }, missionType: { type: string, enum: [Hourly, Daily] }, transportType: { type: string, enum: [Ground, Air] }, missionArea: { type: string, enum: [InCity, OutCity] }, startDateTime: { type: string, format: date-time }, endDateTime: { type: string, format: date-time }, originProvinceId: { type: string, format: uuid }, originCityId: { type: string, format: uuid }, originAddress: { type: string }, destinationProvinceId: { type: string, format: uuid }, destinationCityId: { type: string, format: uuid }, destinationAddress: { type: string }, reason: { type: string }, description: { type: string }, status: { type: string }, companions: { type: array, items: { $ref: '#/components/schemas/MissionCompanionDto' } } }
+    MissionCompanionDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, missionRequestId: { type: string, format: uuid }, personName: { type: string }, nationalCode: { type: string, nullable: true }, employeeUserId: { type: string, nullable: true } }
+    WorkflowDefinitionDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, code: { type: string }, name: { type: string }, entityType: { type: string }, version: { type: integer }, isActive: { type: boolean }, steps: { type: array, items: { $ref: '#/components/schemas/WorkflowStepDto' } } }
+    WorkflowStepDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, workflowDefinitionId: { type: string, format: uuid }, stepOrder: { type: integer }, name: { type: string }, approverType: { type: string, enum: [Role, User] }, approverValue: { type: string }, onApproveNextStepId: { type: string, format: uuid, nullable: true }, onReturnStepId: { type: string, format: uuid, nullable: true }, isFinalApproval: { type: boolean } }
+    WorkflowActionDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, workflowInstanceId: { type: string, format: uuid }, workflowStepId: { type: string, format: uuid }, actionType: { type: string, enum: [Approve, Reject, Return] }, actorUserId: { type: string }, actorRole: { type: string }, comment: { type: string }, actionAt: { type: string, format: date-time } }
+    DriverAttendanceDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, driverId: { type: string, format: uuid }, attendanceDate: { type: string, format: date }, checkInAt: { type: string, format: date-time }, checkOutAt: { type: string, format: date-time, nullable: true }, status: { type: string }, notes: { type: string } }
+    MissionAssignmentDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, missionRequestId: { type: string, format: uuid }, driverId: { type: string, format: uuid }, vehicleId: { type: string, format: uuid }, assignedAt: { type: string, format: date-time }, assignedBy: { type: string }, status: { type: string }, overrideInsuranceExpiry: { type: boolean }, overrideReason: { type: string } }
+    MissionExecutionDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, missionRequestId: { type: string, format: uuid }, actualStartTime: { type: string, format: date-time }, actualEndTime: { type: string, format: date-time, nullable: true }, startKm: { type: integer }, endKm: { type: integer, nullable: true }, totalKm: { type: integer, nullable: true }, drivingHours: { type: number, nullable: true }, sleepHours: { type: number }, stopCost: { type: number }, penaltyAmount: { type: number }, extraPayment: { type: number }, noSalary: { type: boolean }, description: { type: string } }
+    MissionCalculationResultDto:
+      type: object
+      properties: { id: { type: string, format: uuid }, missionExecutionId: { type: string, format: uuid }, baseAmount: { type: number }, kmAmount: { type: number }, hourAmount: { type: number }, sleepAmount: { type: number }, stopCostAmount: { type: number }, penaltyAmount: { type: number }, extraAmount: { type: number }, totalAmount: { type: number }, calculationJson: { type: string }, strategyCode: { type: string }, calculatedAt: { type: string, format: date-time } }
+    CreateProvinceRequest: { allOf: [ { $ref: '#/components/schemas/ProvinceDto' } ] }
+    UpdateProvinceRequest: { allOf: [ { $ref: '#/components/schemas/ProvinceDto' } ] }
+    CreateCityRequest: { allOf: [ { $ref: '#/components/schemas/CityDto' } ] }
+    UpdateCityRequest: { allOf: [ { $ref: '#/components/schemas/CityDto' } ] }
+    CreateBranchRequest: { allOf: [ { $ref: '#/components/schemas/BranchDto' } ] }
+    UpdateBranchRequest: { allOf: [ { $ref: '#/components/schemas/BranchDto' } ] }
+    CreateVehicleRequest: { allOf: [ { $ref: '#/components/schemas/VehicleDto' } ] }
+    UpdateVehicleRequest: { allOf: [ { $ref: '#/components/schemas/VehicleDto' } ] }
+    CreateDriverRequest: { allOf: [ { $ref: '#/components/schemas/DriverDto' } ] }
+    UpdateDriverRequest: { allOf: [ { $ref: '#/components/schemas/DriverDto' } ] }
+    CreateContractRequest: { allOf: [ { $ref: '#/components/schemas/ContractDto' } ] }
+    UpdateContractRequest: { allOf: [ { $ref: '#/components/schemas/ContractDto' } ] }
