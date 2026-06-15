@@ -1,0 +1,16 @@
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\obj\Debug\net8.0\TransportMissionSystem.Application.csproj.AssemblyReference.cache
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\obj\Debug\net8.0\TransportMissionSystem.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\obj\Debug\net8.0\TransportMissionSystem.Application.AssemblyInfoInputs.cache
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\obj\Debug\net8.0\TransportMissionSystem.Application.AssemblyInfo.cs
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\obj\Debug\net8.0\TransportMissionSystem.Application.csproj.CoreCompileInputs.cache
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\obj\Debug\net8.0\TransportMissionSystem.Application.sourcelink.json
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\bin\Debug\net8.0\TransportMissionSystem.Application.deps.json
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\bin\Debug\net8.0\TransportMissionSystem.Application.dll
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\bin\Debug\net8.0\TransportMissionSystem.Application.pdb
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\bin\Debug\net8.0\TransportMissionSystem.Domain.dll
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\bin\Debug\net8.0\TransportMissionSystem.Domain.pdb
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\obj\Debug\net8.0\Transpor.1C5BA76D.Up2Date
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\obj\Debug\net8.0\TransportMissionSystem.Application.dll
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\obj\Debug\net8.0\refint\TransportMissionSystem.Application.dll
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\obj\Debug\net8.0\TransportMissionSystem.Application.pdb
+C:\Users\kingston\Desktop\TransportDemo\backend\src\Application\obj\Debug\net8.0\ref\TransportMissionSystem.Application.dll

@@ -1,0 +1,2962 @@
+openapi: 3.0.3
+info:
+  title: Transport & Mission Management System API
+  version: 1.0.0
+  description: |
+    Enterprise API Contract for the Transportation and Mission Order Management System.
+    This contract is designed for Codex implementation with ASP.NET Core, SQL Server, Clean Architecture, CQRS, and Swagger.
+
+    Important implementation notes:
+    - Sections marked with `x-rfb-status: TODO` represent incomplete or ambiguous RFB requirements and must be completed later.
+    - Sections marked with `x-rfb-status: ASSUMED` are inferred from the current RFB and must be validated with stakeholders.
+    - Business rules are exposed through `x-business-rules` and validation rules through `x-validation-rules`.
+servers:
+  - url: /api/v1
+    description: API version 1
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Auth
+  - name: Users
+  - name: Roles
+  - name: Branches
+  - name: OrganizationUnits
+  - name: Geography
+  - name: Drivers
+  - name: Vehicles
+  - name: Contracts
+  - name: Missions
+  - name: Approvals
+  - name: Dispatch
+  - name: Attendance
+  - name: Execution
+  - name: Finance
+  - name: Reports
+  - name: Audit
+  - name: Integrations
+  - name: Lookups
+
+paths:
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login and receive JWT token
+      operationId: login
+      security: []
+      x-roles: [Anonymous]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponseEnvelope'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+
+  /auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Refresh access token
+      operationId: refreshToken
+      security: []
+      x-roles: [Anonymous]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: Token refreshed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponseEnvelope'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+
+  /me:
+    get:
+      tags: [Users]
+      summary: Get current authenticated user profile
+      operationId: getCurrentUser
+      x-roles: [Admin, Employee, Manager, Dispatcher, Driver, Finance, ITOperator]
+      responses:
+        '200':
+          description: Current user profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseEnvelope'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+
+  /users:
+    get:
+      tags: [Users]
+      summary: Get users with filtering and pagination
+      operationId: getUsers
+      x-roles: [Admin, ITOperator]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - name: search
+          in: query
+          schema: { type: string, nullable: true }
+        - name: branchId
+          in: query
+          schema: { type: integer, nullable: true }
+        - name: organizationUnitId
+          in: query
+          schema: { type: integer, nullable: true }
+      responses:
+        '200':
+          description: Users list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPagedResponseEnvelope'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+    post:
+      tags: [Users]
+      summary: Create user
+      operationId: createUser
+      x-roles: [Admin]
+      x-validation-rules:
+        - Username is required and must be unique.
+        - NationalCode must be unique when provided.
+        - BranchId and OrganizationUnitId must exist when provided.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseEnvelope'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /users/{userId}:
+    get:
+      tags: [Users]
+      summary: Get user by id
+      operationId: getUserById
+      x-roles: [Admin, ITOperator]
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Users]
+      summary: Update user
+      operationId: updateUser
+      x-roles: [Admin]
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+    delete:
+      tags: [Users]
+      summary: Deactivate user
+      operationId: deactivateUser
+      x-roles: [Admin]
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '204': { description: User deactivated }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /users/{userId}/roles:
+    post:
+      tags: [Users, Roles]
+      summary: Assign roles to user
+      operationId: assignUserRoles
+      x-roles: [Admin]
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignRolesRequest'
+      responses:
+        '200':
+          description: Roles assigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /roles:
+    get:
+      tags: [Roles]
+      summary: Get system roles
+      operationId: getRoles
+      x-roles: [Admin, ITOperator]
+      responses:
+        '200':
+          description: Roles list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleListResponseEnvelope'
+
+  /branches:
+    get:
+      tags: [Branches]
+      summary: Get branches
+      operationId: getBranches
+      x-roles: [Admin, ITOperator, Dispatcher, Finance]
+      parameters:
+        - name: search
+          in: query
+          schema: { type: string, nullable: true }
+      responses:
+        '200':
+          description: Branch list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BranchListResponseEnvelope'
+    post:
+      tags: [Branches]
+      summary: Create branch
+      operationId: createBranch
+      x-roles: [Admin, ITOperator]
+      x-business-rules:
+        - Branch registration is a prerequisite for driver registration and mission request workflows.
+      x-validation-rules:
+        - Branch name is required.
+        - Branch code must be unique when provided.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBranchRequest'
+      responses:
+        '201':
+          description: Branch created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BranchResponseEnvelope'
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /branches/{branchId}:
+    get:
+      tags: [Branches]
+      summary: Get branch by id
+      operationId: getBranchById
+      x-roles: [Admin, ITOperator, Dispatcher, Finance]
+      parameters:
+        - $ref: '#/components/parameters/BranchId'
+      responses:
+        '200':
+          description: Branch details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BranchResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Branches]
+      summary: Update branch
+      operationId: updateBranch
+      x-roles: [Admin, ITOperator]
+      parameters:
+        - $ref: '#/components/parameters/BranchId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBranchRequest'
+      responses:
+        '200':
+          description: Branch updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BranchResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    delete:
+      tags: [Branches]
+      summary: Deactivate branch
+      operationId: deactivateBranch
+      x-roles: [Admin]
+      parameters:
+        - $ref: '#/components/parameters/BranchId'
+      responses:
+        '204': { description: Branch deactivated }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /organization-units:
+    get:
+      tags: [OrganizationUnits]
+      summary: Get organization units
+      operationId: getOrganizationUnits
+      x-roles: [Admin, ITOperator, Manager]
+      x-rfb-status: ASSUMED
+      parameters:
+        - name: parentId
+          in: query
+          schema: { type: integer, nullable: true }
+      responses:
+        '200':
+          description: Organization unit list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationUnitListResponseEnvelope'
+    post:
+      tags: [OrganizationUnits]
+      summary: Create organization unit
+      operationId: createOrganizationUnit
+      x-roles: [Admin, ITOperator]
+      x-rfb-status: TODO_EXTERNAL_CHART_ORGANIZATION
+      x-todo:
+        - Clarify whether organization chart data is managed internally or synchronized from Chargoon.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrganizationUnitRequest'
+      responses:
+        '201':
+          description: Organization unit created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationUnitResponseEnvelope'
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /provinces:
+    get:
+      tags: [Geography]
+      summary: Get provinces
+      operationId: getProvinces
+      x-roles: [Admin, ITOperator, Employee, Manager, Dispatcher]
+      responses:
+        '200':
+          description: Province list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvinceListResponseEnvelope'
+    post:
+      tags: [Geography]
+      summary: Create province
+      operationId: createProvince
+      x-roles: [Admin, ITOperator]
+      x-business-rules:
+        - Province and city master data must exist before mission requests can select origin and destination.
+        - Invalid or duplicate geographic data must be rejected.
+      x-validation-rules:
+        - Name is required.
+        - Code must be unique when provided.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProvinceRequest'
+      responses:
+        '201':
+          description: Province created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvinceResponseEnvelope'
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /provinces/{provinceId}:
+    get:
+      tags: [Geography]
+      summary: Get province by id
+      operationId: getProvinceById
+      x-roles: [Admin, ITOperator, Employee, Manager, Dispatcher]
+      parameters:
+        - $ref: '#/components/parameters/ProvinceId'
+      responses:
+        '200':
+          description: Province details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvinceResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Geography]
+      summary: Update province
+      operationId: updateProvince
+      x-roles: [Admin, ITOperator]
+      parameters:
+        - $ref: '#/components/parameters/ProvinceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProvinceRequest'
+      responses:
+        '200':
+          description: Province updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvinceResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    delete:
+      tags: [Geography]
+      summary: Deactivate province
+      operationId: deactivateProvince
+      x-roles: [Admin, ITOperator]
+      parameters:
+        - $ref: '#/components/parameters/ProvinceId'
+      responses:
+        '204': { description: Province deactivated }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /cities:
+    get:
+      tags: [Geography]
+      summary: Get cities
+      operationId: getCities
+      x-roles: [Admin, ITOperator, Employee, Manager, Dispatcher]
+      parameters:
+        - name: provinceId
+          in: query
+          schema: { type: integer, nullable: true }
+      responses:
+        '200':
+          description: City list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityListResponseEnvelope'
+    post:
+      tags: [Geography]
+      summary: Create city
+      operationId: createCity
+      x-roles: [Admin, ITOperator]
+      x-validation-rules:
+        - ProvinceId is required and must exist.
+        - City name is required.
+        - Duplicate city name within the same province is not allowed.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCityRequest'
+      responses:
+        '201':
+          description: City created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /cities/{cityId}:
+    get:
+      tags: [Geography]
+      summary: Get city by id
+      operationId: getCityById
+      x-roles: [Admin, ITOperator, Employee, Manager, Dispatcher]
+      parameters:
+        - $ref: '#/components/parameters/CityId'
+      responses:
+        '200':
+          description: City details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Geography]
+      summary: Update city
+      operationId: updateCity
+      x-roles: [Admin, ITOperator]
+      parameters:
+        - $ref: '#/components/parameters/CityId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCityRequest'
+      responses:
+        '200':
+          description: City updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    delete:
+      tags: [Geography]
+      summary: Deactivate city
+      operationId: deactivateCity
+      x-roles: [Admin, ITOperator]
+      parameters:
+        - $ref: '#/components/parameters/CityId'
+      responses:
+        '204': { description: City deactivated }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /drivers:
+    get:
+      tags: [Drivers]
+      summary: Get drivers
+      operationId: getDrivers
+      x-roles: [Admin, Dispatcher, Finance]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - name: branchId
+          in: query
+          schema: { type: integer, nullable: true }
+        - name: isActive
+          in: query
+          schema: { type: boolean, nullable: true }
+        - name: search
+          in: query
+          schema: { type: string, nullable: true }
+      responses:
+        '200':
+          description: Driver list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverPagedResponseEnvelope'
+    post:
+      tags: [Drivers]
+      summary: Register driver
+      operationId: createDriver
+      x-roles: [Admin, Dispatcher]
+      x-business-rules:
+        - Driver registration must capture identity, contact, license, branch, and insurance information.
+        - Missing required identity or license information must reject registration.
+      x-validation-rules:
+        - FirstName is required.
+        - LastName is required.
+        - NationalCode is required and must be unique.
+        - LicenseNo is required and must be unique.
+        - BranchId must exist.
+        - Mobile must be valid when provided.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDriverRequest'
+      responses:
+        '201':
+          description: Driver registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /drivers/{driverId}:
+    get:
+      tags: [Drivers]
+      summary: Get driver by id
+      operationId: getDriverById
+      x-roles: [Admin, Dispatcher, Finance]
+      parameters:
+        - $ref: '#/components/parameters/DriverId'
+      responses:
+        '200':
+          description: Driver details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Drivers]
+      summary: Update driver
+      operationId: updateDriver
+      x-roles: [Admin, Dispatcher]
+      parameters:
+        - $ref: '#/components/parameters/DriverId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDriverRequest'
+      responses:
+        '200':
+          description: Driver updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+    delete:
+      tags: [Drivers]
+      summary: Deactivate driver
+      operationId: deactivateDriver
+      x-roles: [Admin, Dispatcher]
+      parameters:
+        - $ref: '#/components/parameters/DriverId'
+      responses:
+        '204': { description: Driver deactivated }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /drivers/available:
+    get:
+      tags: [Drivers, Dispatch]
+      summary: Get available drivers for a mission time range
+      operationId: getAvailableDrivers
+      x-roles: [Admin, Dispatcher]
+      x-business-rules:
+        - Only active drivers can be assigned.
+        - A driver cannot have overlapping active missions.
+      parameters:
+        - name: startDateTime
+          in: query
+          required: true
+          schema: { type: string, format: date-time }
+        - name: endDateTime
+          in: query
+          required: true
+          schema: { type: string, format: date-time }
+        - name: branchId
+          in: query
+          schema: { type: integer, nullable: true }
+      responses:
+        '200':
+          description: Available driver list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverListResponseEnvelope'
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /vehicles:
+    get:
+      tags: [Vehicles]
+      summary: Get vehicles
+      operationId: getVehicles
+      x-roles: [Admin, Dispatcher, Finance]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/VehicleStatus'
+        - name: ownershipType
+          in: query
+          schema:
+            $ref: '#/components/schemas/VehicleOwnershipType'
+      responses:
+        '200':
+          description: Vehicle list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehiclePagedResponseEnvelope'
+    post:
+      tags: [Vehicles]
+      summary: Register vehicle
+      operationId: createVehicle
+      x-roles: [Admin, Dispatcher]
+      x-business-rules:
+        - Vehicle registration must include vehicle type, model, color, chassis number, plate number, insurance dates, and ownership type.
+        - Expired or missing insurance must trigger warnings and can block assignment.
+      x-validation-rules:
+        - VehicleType is required.
+        - PlateNo is required and must be unique.
+        - ChassisNo is required and must be unique.
+        - ThirdPartyInsuranceExpireDate is required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVehicleRequest'
+      responses:
+        '201':
+          description: Vehicle registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleResponseEnvelope'
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /vehicles/{vehicleId}:
+    get:
+      tags: [Vehicles]
+      summary: Get vehicle by id
+      operationId: getVehicleById
+      x-roles: [Admin, Dispatcher, Finance]
+      parameters:
+        - $ref: '#/components/parameters/VehicleId'
+      responses:
+        '200':
+          description: Vehicle details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Vehicles]
+      summary: Update vehicle
+      operationId: updateVehicle
+      x-roles: [Admin, Dispatcher]
+      parameters:
+        - $ref: '#/components/parameters/VehicleId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVehicleRequest'
+      responses:
+        '200':
+          description: Vehicle updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+    delete:
+      tags: [Vehicles]
+      summary: Deactivate vehicle
+      operationId: deactivateVehicle
+      x-roles: [Admin, Dispatcher]
+      parameters:
+        - $ref: '#/components/parameters/VehicleId'
+      responses:
+        '204': { description: Vehicle deactivated }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /vehicles/available:
+    get:
+      tags: [Vehicles, Dispatch]
+      summary: Get available vehicles for a mission time range
+      operationId: getAvailableVehicles
+      x-roles: [Admin, Dispatcher]
+      x-business-rules:
+        - Only active and insured vehicles can be assigned.
+        - A vehicle cannot have overlapping active missions.
+      parameters:
+        - name: startDateTime
+          in: query
+          required: true
+          schema: { type: string, format: date-time }
+        - name: endDateTime
+          in: query
+          required: true
+          schema: { type: string, format: date-time }
+      responses:
+        '200':
+          description: Available vehicle list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleListResponseEnvelope'
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /contracts:
+    get:
+      tags: [Contracts]
+      summary: Get contracts
+      operationId: getContracts
+      x-roles: [Admin, Dispatcher, Finance]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - name: driverId
+          in: query
+          schema: { type: integer, nullable: true }
+        - name: vehicleId
+          in: query
+          schema: { type: integer, nullable: true }
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/ContractStatus'
+      responses:
+        '200':
+          description: Contract list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractPagedResponseEnvelope'
+    post:
+      tags: [Contracts]
+      summary: Create contract
+      operationId: createContract
+      x-roles: [Admin, Finance]
+      x-business-rules:
+        - Contract must connect a driver and a vehicle.
+        - Contract rates are used for mission cost and driver salary calculation.
+        - Expired contracts cannot be used for new mission assignments.
+      x-validation-rules:
+        - DriverId is required and must exist.
+        - VehicleId is required and must exist.
+        - StartDate must be before EndDate.
+        - At least one pricing rate must be provided.
+        - Only one active contract per driver-vehicle pair is allowed.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContractRequest'
+      responses:
+        '201':
+          description: Contract created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /contracts/{contractId}:
+    get:
+      tags: [Contracts]
+      summary: Get contract by id
+      operationId: getContractById
+      x-roles: [Admin, Dispatcher, Finance]
+      parameters:
+        - $ref: '#/components/parameters/ContractId'
+      responses:
+        '200':
+          description: Contract details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Contracts]
+      summary: Update contract
+      operationId: updateContract
+      x-roles: [Admin, Finance]
+      parameters:
+        - $ref: '#/components/parameters/ContractId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContractRequest'
+      responses:
+        '200':
+          description: Contract updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+    delete:
+      tags: [Contracts]
+      summary: Terminate contract
+      operationId: terminateContract
+      x-roles: [Admin, Finance]
+      parameters:
+        - $ref: '#/components/parameters/ContractId'
+      responses:
+        '204': { description: Contract terminated }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /missions:
+    get:
+      tags: [Missions]
+      summary: Search missions
+      operationId: searchMissions
+      x-roles: [Admin, Employee, Manager, Dispatcher, Finance]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/MissionStatus'
+        - name: requesterUserId
+          in: query
+          schema: { type: integer, nullable: true }
+        - name: driverId
+          in: query
+          schema: { type: integer, nullable: true }
+        - name: fromDate
+          in: query
+          schema: { type: string, format: date, nullable: true }
+        - name: toDate
+          in: query
+          schema: { type: string, format: date, nullable: true }
+      responses:
+        '200':
+          description: Mission list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionPagedResponseEnvelope'
+    post:
+      tags: [Missions]
+      summary: Create mission request
+      operationId: createMission
+      x-roles: [Employee, Admin]
+      x-business-rules:
+        - Mission must be created before approval starts.
+        - Origin and destination province/city must be selected from predefined lists.
+        - Exact origin and destination addresses are required for mission traceability.
+        - A mission may include additional passenger employees.
+      x-validation-rules:
+        - RequesterUserId is required and must exist.
+        - OriginProvinceId and OriginCityId are required and must exist.
+        - DestinationProvinceId and DestinationCityId are required and must exist.
+        - StartDateTime must be before EndDateTime.
+        - MissionType must be Urban or Outbound unless TODO values are completed later.
+        - TravelType must be Ground or Air unless TODO values are completed later.
+        - Reason is required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMissionRequest'
+            example:
+              requesterUserId: 1
+              originProvinceId: 1
+              originCityId: 10
+              destinationProvinceId: 1
+              destinationCityId: 20
+              startDateTime: '2026-06-20T08:00:00Z'
+              endDateTime: '2026-06-20T14:00:00Z'
+              missionType: Urban
+              travelType: Ground
+              reason: Administrative meeting
+              description: Mission details
+              passengerUserIds: [2, 3]
+      responses:
+        '201':
+          description: Mission request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionResponseEnvelope'
+              example:
+                isSuccess: true
+                message: Mission created successfully.
+                data:
+                  id: 1001
+                  missionNo: MIS-2026-000001
+                  status: Draft
+                errors: []
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /missions/{missionId}:
+    get:
+      tags: [Missions]
+      summary: Get mission details
+      operationId: getMissionById
+      x-roles: [Admin, Employee, Manager, Dispatcher, Finance]
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      responses:
+        '200':
+          description: Mission details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Missions]
+      summary: Update mission request before submission or approval
+      operationId: updateMission
+      x-roles: [Employee, Admin]
+      x-business-rules:
+        - Only Draft or PendingApproval missions can be edited.
+        - Completed, assigned, executed, or settled missions cannot be edited.
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMissionRequest'
+      responses:
+        '200':
+          description: Mission updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /missions/{missionId}/submit:
+    post:
+      tags: [Missions]
+      summary: Submit mission for approval
+      operationId: submitMission
+      x-roles: [Employee, Admin]
+      x-business-rules:
+        - Mission cannot skip approval stage.
+        - Submission changes status to PendingApproval.
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      responses:
+        '200':
+          description: Mission submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /missions/{missionId}/approve:
+    post:
+      tags: [Missions, Approvals]
+      summary: Approve mission request
+      operationId: approveMission
+      x-roles: [Manager, Admin]
+      x-rfb-status: TODO_APPROVAL_CHAIN
+      x-todo:
+        - Clarify full approval chain from expert to manager to HR manager to transportation responsible expert.
+        - Clarify whether each level approval is sequential or dynamic based on organization chart.
+      x-business-rules:
+        - Only PendingApproval missions can be approved.
+        - Approval must be performed by an authorized approver based on organization chart rules.
+        - Approved missions become ReadyForDispatch or Approved based on workflow configuration.
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalDecisionRequest'
+      responses:
+        '200':
+          description: Mission approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionResponseEnvelope'
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /missions/{missionId}/reject:
+    post:
+      tags: [Missions, Approvals]
+      summary: Reject mission request
+      operationId: rejectMission
+      x-roles: [Manager, Admin]
+      x-business-rules:
+        - If any approver rejects the mission, the whole request is rejected and workflow ends.
+        - Rejected missions cannot be assigned or executed.
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RejectMissionRequest'
+      responses:
+        '200':
+          description: Mission rejected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionResponseEnvelope'
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /missions/{missionId}/status:
+    get:
+      tags: [Missions]
+      summary: Get mission status
+      operationId: getMissionStatus
+      x-roles: [Admin, Employee, Manager, Dispatcher, Finance]
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      responses:
+        '200':
+          description: Mission status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionStatusResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /missions/{missionId}/passengers:
+    post:
+      tags: [Missions]
+      summary: Add accompanying employees to mission
+      operationId: addMissionPassengers
+      x-roles: [Employee, Admin]
+      x-business-rules:
+        - A mission can include other employees as accompanying passengers.
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMissionPassengersRequest'
+      responses:
+        '200':
+          description: Passengers added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /approvals/inbox:
+    get:
+      tags: [Approvals]
+      summary: Get missions waiting for current user's approval
+      operationId: getApprovalInbox
+      x-roles: [Manager, Admin]
+      x-rfb-status: TODO_APPROVAL_CHAIN
+      responses:
+        '200':
+          description: Approval inbox
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionListResponseEnvelope'
+
+  /missions/{missionId}/approval-history:
+    get:
+      tags: [Approvals]
+      summary: Get mission approval history
+      operationId: getMissionApprovalHistory
+      x-roles: [Admin, Employee, Manager, Dispatcher]
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      responses:
+        '200':
+          description: Approval history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovalHistoryResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /dispatch/resources:
+    get:
+      tags: [Dispatch]
+      summary: Get valid drivers, vehicles, and contracts for a mission
+      operationId: getDispatchResources
+      x-roles: [Admin, Dispatcher]
+      x-business-rules:
+        - Driver and vehicle must be available for mission time range.
+        - Vehicle insurance must be valid.
+        - Driver/vehicle must have an active contract when finance calculation depends on contract rates.
+      parameters:
+        - name: missionId
+          in: query
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Dispatch resource candidates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispatchResourcesResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /dispatch/assign:
+    post:
+      tags: [Dispatch]
+      summary: Assign driver and vehicle to an approved mission
+      operationId: assignMissionResources
+      x-roles: [Admin, Dispatcher]
+      x-business-rules:
+        - Only approved or ready-for-dispatch missions can be assigned.
+        - Each mission can have only one active driver and one active vehicle.
+        - Driver must be available.
+        - Vehicle must be available and insured.
+        - Invalid driver or vehicle selection must be rejected.
+      x-validation-rules:
+        - MissionId is required and must exist.
+        - DriverId is required and must exist.
+        - VehicleId is required and must exist.
+        - ContractId is required when financial calculation requires contract rates.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignMissionResourcesRequest'
+      responses:
+        '201':
+          description: Mission assignment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionAssignmentResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /dispatch/reassign:
+    post:
+      tags: [Dispatch]
+      summary: Reassign mission driver or vehicle
+      operationId: reassignMissionResources
+      x-roles: [Admin, Dispatcher]
+      x-business-rules:
+        - Reassignment is allowed only before mission execution starts unless emergency exception is approved.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReassignMissionResourcesRequest'
+      responses:
+        '200':
+          description: Mission reassigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionAssignmentResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /missions/{missionId}/assignment:
+    get:
+      tags: [Dispatch]
+      summary: Get mission assignment
+      operationId: getMissionAssignment
+      x-roles: [Admin, Dispatcher, Manager, Finance]
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      responses:
+        '200':
+          description: Mission assignment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionAssignmentResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /driver-attendances:
+    get:
+      tags: [Attendance]
+      summary: Get driver attendance records
+      operationId: getDriverAttendances
+      x-roles: [Admin, Dispatcher, Finance]
+      parameters:
+        - name: driverId
+          in: query
+          schema: { type: integer, nullable: true }
+        - name: vehicleId
+          in: query
+          schema: { type: integer, nullable: true }
+        - name: dateFrom
+          in: query
+          schema: { type: string, format: date, nullable: true }
+        - name: dateTo
+          in: query
+          schema: { type: string, format: date, nullable: true }
+      responses:
+        '200':
+          description: Driver attendance list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverAttendanceListResponseEnvelope'
+    post:
+      tags: [Attendance]
+      summary: Register driver entry and exit time
+      operationId: createDriverAttendance
+      x-roles: [Admin, Dispatcher]
+      x-business-rules:
+        - Entry and exit time must be recorded for hourly urban calculations when applicable.
+        - Multiple attendance records per day must be supported because drivers may have leave or multiple entries/exits.
+        - Duplicate or overlapping attendance records should be rejected or flagged.
+      x-validation-rules:
+        - DriverId is required and must exist.
+        - AttendanceDate is required.
+        - EntryTime is required.
+        - ExitTime must be after EntryTime when provided.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDriverAttendanceRequest'
+      responses:
+        '201':
+          description: Attendance recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverAttendanceResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /driver-attendances/{attendanceId}:
+    get:
+      tags: [Attendance]
+      summary: Get driver attendance by id
+      operationId: getDriverAttendanceById
+      x-roles: [Admin, Dispatcher, Finance]
+      parameters:
+        - $ref: '#/components/parameters/AttendanceId'
+      responses:
+        '200':
+          description: Attendance details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverAttendanceResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Attendance]
+      summary: Update driver attendance
+      operationId: updateDriverAttendance
+      x-roles: [Admin, Dispatcher]
+      x-business-rules:
+        - Attendance correction is allowed only by authorized users.
+        - Corrections after settlement require finance/admin override.
+      parameters:
+        - $ref: '#/components/parameters/AttendanceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDriverAttendanceRequest'
+      responses:
+        '200':
+          description: Attendance updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverAttendanceResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+    delete:
+      tags: [Attendance]
+      summary: Delete attendance record
+      operationId: deleteDriverAttendance
+      x-roles: [Admin]
+      parameters:
+        - $ref: '#/components/parameters/AttendanceId'
+      responses:
+        '204': { description: Attendance deleted }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /missions/{missionId}/execution/start:
+    post:
+      tags: [Execution]
+      summary: Start mission execution
+      operationId: startMissionExecution
+      x-roles: [Admin, Dispatcher, Driver]
+      x-business-rules:
+        - Mission execution cannot start unless mission is assigned.
+        - Rejected missions cannot be executed.
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      responses:
+        '201':
+          description: Execution started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionExecutionResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /missions/{missionId}/execution/times:
+    post:
+      tags: [Execution]
+      summary: Record mission departure and return times
+      operationId: recordMissionTimes
+      x-roles: [Admin, Dispatcher, Driver]
+      x-business-rules:
+        - Departure and return times are required before mission completion.
+        - Return time must be after departure time.
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordMissionTimesRequest'
+      responses:
+        '200':
+          description: Mission times recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionExecutionResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /missions/{missionId}/execution/mileage:
+    post:
+      tags: [Execution]
+      summary: Record mission mileage
+      operationId: recordMissionMileage
+      x-roles: [Admin, Dispatcher, Driver]
+      x-business-rules:
+        - Departure and return kilometers must be read from the vehicle odometer.
+        - ReturnKm must be greater than or equal to DepartureKm.
+        - Mileage is required for outbound or kilometer-based calculations.
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordMissionMileageRequest'
+      responses:
+        '200':
+          description: Mileage recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionExecutionResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /missions/{missionId}/execution/cost-adjustments:
+    post:
+      tags: [Execution, Finance]
+      summary: Record stop, penalty, extra payment, and without-payment flags for a mission
+      operationId: recordMissionCostAdjustments
+      x-roles: [Admin, Dispatcher, Finance]
+      x-rfb-status: ASSUMED
+      x-business-rules:
+        - Stop, penalty, and extra payment amounts must be included in final cost calculation when provided.
+        - WithoutPayment flag prevents payable calculation for the mission execution.
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordMissionCostAdjustmentsRequest'
+      responses:
+        '200':
+          description: Cost adjustments recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionExecutionResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /missions/{missionId}/execution/complete:
+    post:
+      tags: [Execution]
+      summary: Complete mission execution
+      operationId: completeMissionExecution
+      x-roles: [Admin, Dispatcher]
+      x-business-rules:
+        - Mission cannot be completed without required time and mileage records.
+        - Completing mission generates an execution record ready for finance calculation.
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      responses:
+        '200':
+          description: Mission execution completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionExecutionResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /mission-executions/{executionId}:
+    get:
+      tags: [Execution]
+      summary: Get mission execution by id
+      operationId: getMissionExecutionById
+      x-roles: [Admin, Dispatcher, Finance, Manager]
+      parameters:
+        - $ref: '#/components/parameters/ExecutionId'
+      responses:
+        '200':
+          description: Mission execution details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionExecutionResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /finance/missions/{missionId}/calculate:
+    post:
+      tags: [Finance]
+      summary: Calculate mission cost based on execution and contract
+      operationId: calculateMissionCost
+      x-roles: [Admin, Finance]
+      x-business-rules:
+        - Contract rates are mandatory for financial calculation.
+        - Urban missions are calculated hourly based on attendance or mission duration according to configured policy.
+        - Outbound missions are calculated based on distance and sleep hours.
+        - Sleep rule: every 100 km equals 1 driving hour; sleep hours are total mission hours minus calculated driving hours.
+        - Stop, penalty, and extra payment amounts must affect final total.
+        - Financial calculation becomes immutable after settlement.
+      x-rfb-status: PARTIAL
+      x-todo:
+        - Clarify exact calculation policy for other organizations.
+        - Clarify whether urban hourly calculation uses driver attendance records or mission execution times.
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      responses:
+        '200':
+          description: Mission cost calculated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionCostResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /finance/missions/{missionId}/cost:
+    get:
+      tags: [Finance]
+      summary: Get calculated cost for a mission
+      operationId: getMissionCost
+      x-roles: [Admin, Finance, Manager]
+      parameters:
+        - $ref: '#/components/parameters/MissionId'
+      responses:
+        '200':
+          description: Mission cost
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionCostResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /finance/settlements:
+    get:
+      tags: [Finance]
+      summary: Get monthly settlements
+      operationId: getSettlements
+      x-roles: [Admin, Finance]
+      parameters:
+        - name: year
+          in: query
+          required: true
+          schema: { type: integer, minimum: 2000 }
+        - name: month
+          in: query
+          required: true
+          schema: { type: integer, minimum: 1, maximum: 12 }
+        - name: driverId
+          in: query
+          schema: { type: integer, nullable: true }
+      responses:
+        '200':
+          description: Monthly settlements
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettlementListResponseEnvelope'
+
+  /finance/settlements/generate:
+    post:
+      tags: [Finance]
+      summary: Generate monthly driver settlements
+      operationId: generateMonthlySettlement
+      x-roles: [Admin, Finance]
+      x-business-rules:
+        - Monthly settlement aggregates attendance, mission execution, calculated costs, penalties, and extra payments.
+        - Once settlement is finalized, financial records must not be modified.
+        - Settlement generation should be idempotent for same year/month unless regeneration is explicitly allowed.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateSettlementRequest'
+      responses:
+        '201':
+          description: Settlement generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettlementListResponseEnvelope'
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /finance/settlements/{settlementId}:
+    get:
+      tags: [Finance]
+      summary: Get settlement by id
+      operationId: getSettlementById
+      x-roles: [Admin, Finance]
+      parameters:
+        - $ref: '#/components/parameters/SettlementId'
+      responses:
+        '200':
+          description: Settlement details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettlementResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /finance/settlements/{settlementId}/finalize:
+    post:
+      tags: [Finance]
+      summary: Finalize settlement and make it immutable
+      operationId: finalizeSettlement
+      x-roles: [Admin, Finance]
+      x-business-rules:
+        - Finalized settlements are immutable.
+        - Related mission costs must be locked after finalization.
+      parameters:
+        - $ref: '#/components/parameters/SettlementId'
+      responses:
+        '200':
+          description: Settlement finalized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettlementResponseEnvelope'
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /finance/calculation-policies:
+    get:
+      tags: [Finance, Lookups]
+      summary: Get calculation policies
+      operationId: getCalculationPolicies
+      x-roles: [Admin, Finance]
+      x-rfb-status: TODO_OTHER_ORGANIZATIONS
+      x-todo:
+        - Complete calculation rules for other organizations when RFB is completed.
+      responses:
+        '200':
+          description: Calculation policies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculationPolicyListResponseEnvelope'
+    post:
+      tags: [Finance, Lookups]
+      summary: Create calculation policy placeholder
+      operationId: createCalculationPolicy
+      x-roles: [Admin, Finance]
+      x-rfb-status: TODO_OTHER_ORGANIZATIONS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCalculationPolicyRequest'
+      responses:
+        '201':
+          description: Calculation policy created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculationPolicyResponseEnvelope'
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /reports/missions:
+    get:
+      tags: [Reports]
+      summary: Mission report
+      operationId: getMissionReport
+      x-roles: [Admin, Manager, Dispatcher, Finance]
+      parameters:
+        - name: fromDate
+          in: query
+          schema: { type: string, format: date, nullable: true }
+        - name: toDate
+          in: query
+          schema: { type: string, format: date, nullable: true }
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/MissionStatus'
+      responses:
+        '200':
+          description: Mission report data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponseEnvelope'
+
+  /reports/drivers:
+    get:
+      tags: [Reports]
+      summary: Driver performance report
+      operationId: getDriverReport
+      x-roles: [Admin, Manager, Dispatcher, Finance]
+      parameters:
+        - name: driverId
+          in: query
+          schema: { type: integer, nullable: true }
+        - name: fromDate
+          in: query
+          schema: { type: string, format: date, nullable: true }
+        - name: toDate
+          in: query
+          schema: { type: string, format: date, nullable: true }
+      responses:
+        '200':
+          description: Driver report data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponseEnvelope'
+
+  /reports/vehicles:
+    get:
+      tags: [Reports]
+      summary: Vehicle usage report
+      operationId: getVehicleReport
+      x-roles: [Admin, Manager, Dispatcher, Finance]
+      parameters:
+        - name: vehicleId
+          in: query
+          schema: { type: integer, nullable: true }
+        - name: fromDate
+          in: query
+          schema: { type: string, format: date, nullable: true }
+        - name: toDate
+          in: query
+          schema: { type: string, format: date, nullable: true }
+      responses:
+        '200':
+          description: Vehicle report data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponseEnvelope'
+
+  /reports/costs:
+    get:
+      tags: [Reports]
+      summary: Cost analysis report
+      operationId: getCostReport
+      x-roles: [Admin, Manager, Finance]
+      parameters:
+        - name: fromDate
+          in: query
+          schema: { type: string, format: date, nullable: true }
+        - name: toDate
+          in: query
+          schema: { type: string, format: date, nullable: true }
+        - name: driverId
+          in: query
+          schema: { type: integer, nullable: true }
+      responses:
+        '200':
+          description: Cost report data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponseEnvelope'
+
+  /audit-logs:
+    get:
+      tags: [Audit]
+      summary: Search audit logs
+      operationId: searchAuditLogs
+      x-roles: [Admin]
+      x-business-rules:
+        - All critical operations must be auditable.
+        - Audit logs must include actor, action, entity, timestamp, and before/after values where applicable.
+      parameters:
+        - name: entityName
+          in: query
+          schema: { type: string, nullable: true }
+        - name: entityId
+          in: query
+          schema: { type: string, nullable: true }
+        - name: actorUserId
+          in: query
+          schema: { type: integer, nullable: true }
+      responses:
+        '200':
+          description: Audit logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogListResponseEnvelope'
+
+  /integrations/chargoon/org-chart/sync:
+    post:
+      tags: [Integrations]
+      summary: Synchronize organization chart from Chargoon
+      operationId: syncChargoonOrgChart
+      x-roles: [Admin, ITOperator]
+      x-rfb-status: TODO_EXTERNAL_INTEGRATION
+      x-todo:
+        - Clarify Chargoon API availability, authentication, data mapping, and sync frequency.
+        - If Chargoon integration is not available in MVP, keep this endpoint disabled behind feature flag.
+      responses:
+        '202':
+          description: Sync accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAcceptedResponseEnvelope'
+        '501':
+          description: Not implemented until external integration is clarified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema: { type: integer, minimum: 1, default: 1 }
+    PageSize:
+      name: pageSize
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 200, default: 20 }
+    UserId:
+      name: userId
+      in: path
+      required: true
+      schema: { type: integer }
+    BranchId:
+      name: branchId
+      in: path
+      required: true
+      schema: { type: integer }
+    ProvinceId:
+      name: provinceId
+      in: path
+      required: true
+      schema: { type: integer }
+    CityId:
+      name: cityId
+      in: path
+      required: true
+      schema: { type: integer }
+    DriverId:
+      name: driverId
+      in: path
+      required: true
+      schema: { type: integer }
+    VehicleId:
+      name: vehicleId
+      in: path
+      required: true
+      schema: { type: integer }
+    ContractId:
+      name: contractId
+      in: path
+      required: true
+      schema: { type: integer }
+    MissionId:
+      name: missionId
+      in: path
+      required: true
+      schema: { type: integer }
+    AttendanceId:
+      name: attendanceId
+      in: path
+      required: true
+      schema: { type: integer }
+    ExecutionId:
+      name: executionId
+      in: path
+      required: true
+      schema: { type: integer }
+    SettlementId:
+      name: settlementId
+      in: path
+      required: true
+      schema: { type: integer }
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    Conflict:
+      description: Business rule conflict
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    ValidationError:
+      description: Validation failed
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        isSuccess: { type: boolean, example: false }
+        message: { type: string }
+        data: { nullable: true }
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorItem'
+
+    ErrorItem:
+      type: object
+      properties:
+        code: { type: string, example: MISSION_NOT_APPROVED }
+        field: { type: string, nullable: true, example: missionId }
+        message: { type: string }
+
+    PaginationMeta:
+      type: object
+      properties:
+        page: { type: integer }
+        pageSize: { type: integer }
+        totalItems: { type: integer }
+        totalPages: { type: integer }
+
+    MissionType:
+      type: string
+      enum: [Urban, Outbound, TODO_Other]
+      description: TODO_Other must be clarified when incomplete RFB sections are completed.
+
+    TravelType:
+      type: string
+      enum: [Ground, Air, TODO_Other]
+
+    MissionStatus:
+      type: string
+      enum:
+        - Draft
+        - PendingApproval
+        - Approved
+        - Rejected
+        - ReadyForDispatch
+        - Assigned
+        - InProgress
+        - Completed
+        - CostCalculated
+        - PendingSettlement
+        - Settled
+        - Cancelled
+
+    VehicleOwnershipType:
+      type: string
+      enum: [Personal, Organization]
+
+    VehicleStatus:
+      type: string
+      enum: [Available, Assigned, InService, OutOfService, InsuranceExpired, Inactive]
+
+    ContractStatus:
+      type: string
+      enum: [Draft, Active, Expired, Terminated]
+
+    SettlementStatus:
+      type: string
+      enum: [Draft, Generated, Finalized, Cancelled]
+
+    CalculationPolicyType:
+      type: string
+      enum:
+        - UrbanHourly
+        - UrbanKilometer
+        - OutboundKilometerAndSleep
+        - TODO_OrganizationSpecific
+
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username: { type: string }
+        password: { type: string, format: password }
+
+    RefreshTokenRequest:
+      type: object
+      required: [refreshToken]
+      properties:
+        refreshToken: { type: string }
+
+    AuthResponse:
+      type: object
+      properties:
+        accessToken: { type: string }
+        refreshToken: { type: string }
+        expiresAt: { type: string, format: date-time }
+        user:
+          $ref: '#/components/schemas/UserDto'
+
+    AuthResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/AuthResponse'
+
+    SuccessEnvelope:
+      type: object
+      properties:
+        isSuccess: { type: boolean, example: true }
+        message: { type: string, nullable: true }
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorItem'
+
+    UserDto:
+      type: object
+      properties:
+        id: { type: integer }
+        branchId: { type: integer, nullable: true }
+        organizationUnitId: { type: integer, nullable: true }
+        firstName: { type: string }
+        lastName: { type: string }
+        nationalCode: { type: string, nullable: true }
+        mobile: { type: string, nullable: true }
+        personnelCode: { type: string, nullable: true }
+        username: { type: string }
+        roles:
+          type: array
+          items: { type: string }
+        isActive: { type: boolean }
+
+    CreateUserRequest:
+      type: object
+      required: [firstName, lastName, username]
+      properties:
+        branchId: { type: integer, nullable: true }
+        organizationUnitId: { type: integer, nullable: true }
+        firstName: { type: string, maxLength: 100 }
+        lastName: { type: string, maxLength: 100 }
+        nationalCode: { type: string, nullable: true, maxLength: 10 }
+        mobile: { type: string, nullable: true }
+        personnelCode: { type: string, nullable: true }
+        username: { type: string }
+        password: { type: string, nullable: true, description: Required if identity provider is local. }
+        roleIds:
+          type: array
+          items: { type: integer }
+
+    UpdateUserRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateUserRequest'
+
+    AssignRolesRequest:
+      type: object
+      required: [roleIds]
+      properties:
+        roleIds:
+          type: array
+          items: { type: integer }
+
+    RoleDto:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        description: { type: string, nullable: true }
+
+    BranchDto:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        code: { type: string, nullable: true }
+        address: { type: string, nullable: true }
+        isActive: { type: boolean }
+
+    CreateBranchRequest:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string }
+        code: { type: string, nullable: true }
+        address: { type: string, nullable: true }
+
+    UpdateBranchRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateBranchRequest'
+        - type: object
+          properties:
+            isActive: { type: boolean }
+
+    OrganizationUnitDto:
+      type: object
+      properties:
+        id: { type: integer }
+        parentId: { type: integer, nullable: true }
+        name: { type: string }
+        code: { type: string, nullable: true }
+        isActive: { type: boolean }
+
+    CreateOrganizationUnitRequest:
+      type: object
+      required: [name]
+      properties:
+        parentId: { type: integer, nullable: true }
+        name: { type: string }
+        code: { type: string, nullable: true }
+
+    ProvinceDto:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        code: { type: string, nullable: true }
+        isActive: { type: boolean }
+
+    CreateProvinceRequest:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string }
+        code: { type: string, nullable: true }
+
+    UpdateProvinceRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateProvinceRequest'
+        - type: object
+          properties:
+            isActive: { type: boolean }
+
+    CityDto:
+      type: object
+      properties:
+        id: { type: integer }
+        provinceId: { type: integer }
+        name: { type: string }
+        code: { type: string, nullable: true }
+        isActive: { type: boolean }
+
+    CreateCityRequest:
+      type: object
+      required: [provinceId, name]
+      properties:
+        provinceId: { type: integer }
+        name: { type: string }
+        code: { type: string, nullable: true }
+
+    UpdateCityRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateCityRequest'
+        - type: object
+          properties:
+            isActive: { type: boolean }
+
+    DriverDto:
+      type: object
+      properties:
+        id: { type: integer }
+        branchId: { type: integer }
+        firstName: { type: string }
+        lastName: { type: string }
+        fatherName: { type: string, nullable: true }
+        nationalCode: { type: string }
+        birthCertificateNo: { type: string, nullable: true }
+        birthPlace: { type: string, nullable: true }
+        birthDate: { type: string, format: date, nullable: true }
+        mobile: { type: string, nullable: true }
+        licenseNo: { type: string }
+        insuranceExpireDate: { type: string, format: date, nullable: true }
+        insuranceWarningEnabled: { type: boolean }
+        isActive: { type: boolean }
+
+    CreateDriverRequest:
+      type: object
+      required: [branchId, firstName, lastName, nationalCode, licenseNo]
+      properties:
+        branchId: { type: integer }
+        firstName: { type: string }
+        lastName: { type: string }
+        fatherName: { type: string, nullable: true }
+        nationalCode: { type: string, maxLength: 10 }
+        birthCertificateNo: { type: string, nullable: true }
+        birthPlace: { type: string, nullable: true }
+        birthDate: { type: string, format: date, nullable: true }
+        mobile: { type: string, nullable: true }
+        licenseNo: { type: string }
+        insuranceExpireDate: { type: string, format: date, nullable: true }
+        insuranceWarningEnabled: { type: boolean, default: false }
+
+    UpdateDriverRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateDriverRequest'
+        - type: object
+          properties:
+            isActive: { type: boolean }
+
+    VehicleDto:
+      type: object
+      properties:
+        id: { type: integer }
+        vehicleType: { type: string }
+        model: { type: string, nullable: true }
+        color: { type: string, nullable: true }
+        chassisNo: { type: string }
+        plateNo: { type: string }
+        ownershipType:
+          $ref: '#/components/schemas/VehicleOwnershipType'
+        thirdPartyInsuranceExpireDate: { type: string, format: date }
+        bodyInsuranceExpireDate: { type: string, format: date, nullable: true }
+        status:
+          $ref: '#/components/schemas/VehicleStatus'
+        isActive: { type: boolean }
+
+    CreateVehicleRequest:
+      type: object
+      required: [vehicleType, chassisNo, plateNo, ownershipType, thirdPartyInsuranceExpireDate]
+      properties:
+        vehicleType: { type: string }
+        model: { type: string, nullable: true }
+        color: { type: string, nullable: true }
+        chassisNo: { type: string }
+        plateNo: { type: string }
+        ownershipType:
+          $ref: '#/components/schemas/VehicleOwnershipType'
+        thirdPartyInsuranceExpireDate: { type: string, format: date }
+        bodyInsuranceExpireDate: { type: string, format: date, nullable: true }
+
+    UpdateVehicleRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateVehicleRequest'
+        - type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/VehicleStatus'
+            isActive: { type: boolean }
+
+    ContractDto:
+      type: object
+      properties:
+        id: { type: integer }
+        driverId: { type: integer }
+        vehicleId: { type: integer }
+        startDate: { type: string, format: date }
+        endDate: { type: string, format: date }
+        hourlyAmount: { type: number, format: decimal, nullable: true }
+        goingAmount: { type: number, format: decimal, nullable: true }
+        returningAmount: { type: number, format: decimal, nullable: true }
+        sleepHourlyAmount: { type: number, format: decimal, nullable: true }
+        kilometerAmount: { type: number, format: decimal, nullable: true }
+        hasInsurance: { type: boolean, nullable: true, description: RFB says this field exists in old system but may not be used. }
+        status:
+          $ref: '#/components/schemas/ContractStatus'
+
+    CreateContractRequest:
+      type: object
+      required: [driverId, vehicleId, startDate, endDate]
+      properties:
+        driverId: { type: integer }
+        vehicleId: { type: integer }
+        startDate: { type: string, format: date }
+        endDate: { type: string, format: date }
+        hourlyAmount: { type: number, format: decimal, nullable: true }
+        goingAmount: { type: number, format: decimal, nullable: true }
+        returningAmount: { type: number, format: decimal, nullable: true }
+        sleepHourlyAmount: { type: number, format: decimal, nullable: true }
+        kilometerAmount: { type: number, format: decimal, nullable: true }
+        hasInsurance: { type: boolean, nullable: true }
+
+    UpdateContractRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateContractRequest'
+        - type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/ContractStatus'
+
+    MissionDto:
+      type: object
+      properties:
+        id: { type: integer }
+        missionNo: { type: string }
+        requesterUserId: { type: integer }
+        originProvinceId: { type: integer }
+        originCityId: { type: integer }
+        destinationProvinceId: { type: integer }
+        destinationCityId: { type: integer }
+        startDateTime: { type: string, format: date-time }
+        endDateTime: { type: string, format: date-time }
+        missionType:
+          $ref: '#/components/schemas/MissionType'
+        travelType:
+          $ref: '#/components/schemas/TravelType'
+        originAddress: { type: string, nullable: true }
+        destinationAddress: { type: string, nullable: true }
+        reason: { type: string }
+        description: { type: string, nullable: true }
+        status:
+          $ref: '#/components/schemas/MissionStatus'
+        passengerUserIds:
+          type: array
+          items: { type: integer }
+
+    CreateMissionRequest:
+      type: object
+      required:
+        - requesterUserId
+        - originProvinceId
+        - originCityId
+        - destinationProvinceId
+        - destinationCityId
+        - startDateTime
+        - endDateTime
+        - missionType
+        - travelType
+        - reason
+      properties:
+        requesterUserId: { type: integer }
+        originProvinceId: { type: integer }
+        originCityId: { type: integer }
+        destinationProvinceId: { type: integer }
+        destinationCityId: { type: integer }
+        startDateTime: { type: string, format: date-time }
+        endDateTime: { type: string, format: date-time }
+        missionType:
+          $ref: '#/components/schemas/MissionType'
+        travelType:
+          $ref: '#/components/schemas/TravelType'
+        originAddress: { type: string, nullable: true }
+        destinationAddress: { type: string, nullable: true }
+        reason: { type: string }
+        description: { type: string, nullable: true }
+        passengerUserIds:
+          type: array
+          items: { type: integer }
+
+    UpdateMissionRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateMissionRequest'
+
+    ApprovalDecisionRequest:
+      type: object
+      properties:
+        comment: { type: string, nullable: true }
+
+    RejectMissionRequest:
+      type: object
+      required: [reason]
+      properties:
+        reason: { type: string }
+        comment: { type: string, nullable: true }
+
+    AddMissionPassengersRequest:
+      type: object
+      required: [passengerUserIds]
+      properties:
+        passengerUserIds:
+          type: array
+          items: { type: integer }
+
+    ApprovalHistoryItemDto:
+      type: object
+      properties:
+        id: { type: integer }
+        missionId: { type: integer }
+        approverUserId: { type: integer }
+        approvalOrder: { type: integer }
+        approvalRole: { type: string, nullable: true }
+        status: { type: string }
+        comment: { type: string, nullable: true }
+        actionDateTime: { type: string, format: date-time, nullable: true }
+
+    DispatchResourcesDto:
+      type: object
+      properties:
+        missionId: { type: integer }
+        availableDrivers:
+          type: array
+          items: { $ref: '#/components/schemas/DriverDto' }
+        availableVehicles:
+          type: array
+          items: { $ref: '#/components/schemas/VehicleDto' }
+        activeContracts:
+          type: array
+          items: { $ref: '#/components/schemas/ContractDto' }
+        warnings:
+          type: array
+          items: { type: string }
+
+    AssignMissionResourcesRequest:
+      type: object
+      required: [missionId, driverId, vehicleId]
+      properties:
+        missionId: { type: integer }
+        driverId: { type: integer }
+        vehicleId: { type: integer }
+        contractId: { type: integer, nullable: true }
+        description: { type: string, nullable: true }
+
+    ReassignMissionResourcesRequest:
+      type: object
+      required: [missionId, driverId, vehicleId, reason]
+      properties:
+        missionId: { type: integer }
+        driverId: { type: integer }
+        vehicleId: { type: integer }
+        contractId: { type: integer, nullable: true }
+        reason: { type: string }
+
+    MissionAssignmentDto:
+      type: object
+      properties:
+        id: { type: integer }
+        missionId: { type: integer }
+        driverId: { type: integer }
+        vehicleId: { type: integer }
+        contractId: { type: integer, nullable: true }
+        assignedByUserId: { type: integer }
+        assignedAt: { type: string, format: date-time }
+        status: { type: string }
+        description: { type: string, nullable: true }
+
+    DriverAttendanceDto:
+      type: object
+      properties:
+        id: { type: integer }
+        driverId: { type: integer }
+        vehicleId: { type: integer, nullable: true }
+        attendanceDate: { type: string, format: date }
+        entryTime: { type: string, format: time }
+        exitTime: { type: string, format: time, nullable: true }
+        totalHours: { type: number, format: decimal, nullable: true }
+        description: { type: string, nullable: true }
+
+    CreateDriverAttendanceRequest:
+      type: object
+      required: [driverId, attendanceDate, entryTime]
+      properties:
+        driverId: { type: integer }
+        vehicleId: { type: integer, nullable: true }
+        attendanceDate: { type: string, format: date }
+        entryTime: { type: string, example: '08:00:00' }
+        exitTime: { type: string, nullable: true, example: '14:00:00' }
+        description: { type: string, nullable: true }
+
+    UpdateDriverAttendanceRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateDriverAttendanceRequest'
+
+    RecordMissionTimesRequest:
+      type: object
+      required: [departureDateTime, returnDateTime]
+      properties:
+        departureDateTime: { type: string, format: date-time }
+        returnDateTime: { type: string, format: date-time }
+
+    RecordMissionMileageRequest:
+      type: object
+      required: [departureKilometer, returnKilometer]
+      properties:
+        departureKilometer: { type: integer, minimum: 0 }
+        returnKilometer: { type: integer, minimum: 0 }
+
+    RecordMissionCostAdjustmentsRequest:
+      type: object
+      properties:
+        stopAmount: { type: number, format: decimal, nullable: true }
+        penaltyAmount: { type: number, format: decimal, nullable: true }
+        extraPaymentAmount: { type: number, format: decimal, nullable: true }
+        withoutPayment: { type: boolean, default: false }
+        description: { type: string, nullable: true }
+
+    MissionExecutionDto:
+      type: object
+      properties:
+        id: { type: integer }
+        missionAssignmentId: { type: integer }
+        departureDateTime: { type: string, format: date-time, nullable: true }
+        returnDateTime: { type: string, format: date-time, nullable: true }
+        departureKilometer: { type: integer, nullable: true }
+        returnKilometer: { type: integer, nullable: true }
+        totalKilometer: { type: integer, nullable: true }
+        drivingHours: { type: number, format: decimal, nullable: true }
+        sleepHours: { type: number, format: decimal, nullable: true }
+        stopAmount: { type: number, format: decimal, nullable: true }
+        penaltyAmount: { type: number, format: decimal, nullable: true }
+        extraPaymentAmount: { type: number, format: decimal, nullable: true }
+        withoutPayment: { type: boolean }
+        status: { type: string }
+
+    MissionCostDto:
+      type: object
+      properties:
+        id: { type: integer }
+        missionId: { type: integer }
+        missionExecutionId: { type: integer }
+        goingCost: { type: number, format: decimal, nullable: true }
+        returningCost: { type: number, format: decimal, nullable: true }
+        kilometerCost: { type: number, format: decimal, nullable: true }
+        sleepCost: { type: number, format: decimal, nullable: true }
+        hourlyCost: { type: number, format: decimal, nullable: true }
+        stopCost: { type: number, format: decimal, nullable: true }
+        penaltyCost: { type: number, format: decimal, nullable: true }
+        extraPayment: { type: number, format: decimal, nullable: true }
+        totalCost: { type: number, format: decimal }
+        calculatedAt: { type: string, format: date-time }
+        isLocked: { type: boolean }
+
+    GenerateSettlementRequest:
+      type: object
+      required: [year, month]
+      properties:
+        year: { type: integer, minimum: 2000 }
+        month: { type: integer, minimum: 1, maximum: 12 }
+        driverIds:
+          type: array
+          nullable: true
+          items: { type: integer }
+        allowRegenerate: { type: boolean, default: false }
+
+    SettlementDto:
+      type: object
+      properties:
+        id: { type: integer }
+        driverId: { type: integer }
+        contractId: { type: integer, nullable: true }
+        year: { type: integer }
+        month: { type: integer }
+        attendanceAmount: { type: number, format: decimal }
+        missionAmount: { type: number, format: decimal }
+        penaltyAmount: { type: number, format: decimal }
+        extraPaymentAmount: { type: number, format: decimal }
+        totalPayableAmount: { type: number, format: decimal }
+        status:
+          $ref: '#/components/schemas/SettlementStatus'
+        calculatedAt: { type: string, format: date-time }
+
+    CalculationPolicyDto:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        policyType:
+          $ref: '#/components/schemas/CalculationPolicyType'
+        formulaDescription: { type: string, nullable: true }
+        isActive: { type: boolean }
+        todoNotes: { type: string, nullable: true }
+
+    CreateCalculationPolicyRequest:
+      type: object
+      required: [name, policyType]
+      properties:
+        name: { type: string }
+        policyType:
+          $ref: '#/components/schemas/CalculationPolicyType'
+        formulaDescription: { type: string, nullable: true }
+        todoNotes: { type: string, nullable: true }
+
+    ReportDto:
+      type: object
+      additionalProperties: true
+      description: Generic report output. Exact report columns must be finalized during reporting specification.
+
+    AuditLogDto:
+      type: object
+      properties:
+        id: { type: integer }
+        actorUserId: { type: integer, nullable: true }
+        action: { type: string }
+        entityName: { type: string }
+        entityId: { type: string }
+        occurredAt: { type: string, format: date-time }
+        beforeJson: { type: string, nullable: true }
+        afterJson: { type: string, nullable: true }
+
+    JobAcceptedDto:
+      type: object
+      properties:
+        jobId: { type: string }
+        status: { type: string, example: Accepted }
+
+    # Response envelopes
+    UserResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/UserDto' } }
+    UserPagedResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: '#/components/schemas/UserDto' }
+                meta: { $ref: '#/components/schemas/PaginationMeta' }
+    RoleListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/RoleDto' }
+    BranchResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/BranchDto' } }
+    BranchListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/BranchDto' }
+    OrganizationUnitResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/OrganizationUnitDto' } }
+    OrganizationUnitListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/OrganizationUnitDto' }
+    ProvinceResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/ProvinceDto' } }
+    ProvinceListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/ProvinceDto' }
+    CityResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/CityDto' } }
+    CityListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/CityDto' }
+    DriverResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/DriverDto' } }
+    DriverListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/DriverDto' }
+    DriverPagedResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: '#/components/schemas/DriverDto' }
+                meta: { $ref: '#/components/schemas/PaginationMeta' }
+    VehicleResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/VehicleDto' } }
+    VehicleListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/VehicleDto' }
+    VehiclePagedResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: '#/components/schemas/VehicleDto' }
+                meta: { $ref: '#/components/schemas/PaginationMeta' }
+    ContractResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/ContractDto' } }
+    ContractPagedResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: '#/components/schemas/ContractDto' }
+                meta: { $ref: '#/components/schemas/PaginationMeta' }
+    MissionResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/MissionDto' } }
+    MissionListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/MissionDto' }
+    MissionPagedResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: '#/components/schemas/MissionDto' }
+                meta: { $ref: '#/components/schemas/PaginationMeta' }
+    MissionStatusResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                missionId: { type: integer }
+                missionNo: { type: string }
+                status: { $ref: '#/components/schemas/MissionStatus' }
+    ApprovalHistoryResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/ApprovalHistoryItemDto' }
+    DispatchResourcesResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/DispatchResourcesDto' } }
+    MissionAssignmentResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/MissionAssignmentDto' } }
+    DriverAttendanceResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/DriverAttendanceDto' } }
+    DriverAttendanceListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/DriverAttendanceDto' }
+    MissionExecutionResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/MissionExecutionDto' } }
+    MissionCostResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/MissionCostDto' } }
+    SettlementResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/SettlementDto' } }
+    SettlementListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/SettlementDto' }
+    CalculationPolicyResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/CalculationPolicyDto' } }
+    CalculationPolicyListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/CalculationPolicyDto' }
+    ReportResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/ReportDto' }
+    AuditLogListResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/AuditLogDto' }
+    JobAcceptedResponseEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/SuccessEnvelope'
+        - type: object
+          properties: { data: { $ref: '#/components/schemas/JobAcceptedDto' } }
