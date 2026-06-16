@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_mission-info-and-kilometer" targetNamespace="https://example.com/transport-bpmn">
+  <process id="mission-info-and-kilometer" name="فرآیند ثبت اطلاعات و کیلومتر مأموریت" isExecutable="false">
+    <laneSet id="LaneSet_mission-info-and-kilometer">
+      <lane id="Lane_mission-info-and-kilometer_1" name="راننده">
+        <flowNodeRef>Start_MI</flowNodeRef>
+        <flowNodeRef>Task_MI_TimeData</flowNodeRef>
+        <flowNodeRef>Task_MI_KmData</flowNodeRef>
+      </lane>
+      <lane id="Lane_mission-info-and-kilometer_2" name="کاربر / مسئول ثبت">
+        <flowNodeRef>Task_MI_Form</flowNodeRef>
+        <flowNodeRef>Task_MI_Select</flowNodeRef>
+        <flowNodeRef>Task_MI_Depart</flowNodeRef>
+        <flowNodeRef>Task_MI_Return</flowNodeRef>
+        <flowNodeRef>Task_MI_Km</flowNodeRef>
+        <flowNodeRef>Task_MI_Distance</flowNodeRef>
+        <flowNodeRef>Task_MI_Costs</flowNodeRef>
+        <flowNodeRef>Gw_MI_Complete</flowNodeRef>
+        <flowNodeRef>Task_MI_Error</flowNodeRef>
+      </lane>
+      <lane id="Lane_mission-info-and-kilometer_3" name="مالی">
+        <flowNodeRef>Task_MI_Calc</flowNodeRef>
+        <flowNodeRef>Gw_MI_Recalc</flowNodeRef>
+        <flowNodeRef>Task_MI_Save</flowNodeRef>
+        <flowNodeRef>Task_MI_Report</flowNodeRef>
+        <flowNodeRef>End_MI</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="Start_MI" name="شروع"/>
+    <task id="Task_MI_TimeData" name="ارائه زمان رفت و برگشت"/>
+    <task id="Task_MI_KmData" name="ارائه کیلومتر رفت و برگشت"/>
+    <userTask id="Task_MI_Form" name="ورود به فرم ثبت اطلاعات مأموریت"/>
+    <task id="Task_MI_Select" name="انتخاب مأموریت تخصیص‌یافته"/>
+    <task id="Task_MI_Depart" name="ثبت تاریخ و ساعت رفت"/>
+    <task id="Task_MI_Return" name="ثبت تاریخ و ساعت برگشت"/>
+    <task id="Task_MI_Km" name="ثبت کیلومتر رفت و برگشت"/>
+    <task id="Task_MI_Distance" name="محاسبه مسافت"/>
+    <task id="Task_MI_Costs" name="ورود هزینه‌های مأموریت"/>
+    <exclusiveGateway id="Gw_MI_Complete" name="اطلاعات کامل و معتبر است؟"/>
+    <task id="Task_MI_Error" name="نمایش خطا و اصلاح"/>
+    <task id="Task_MI_Calc" name="محاسبه حقوق مأموریت"/>
+    <exclusiveGateway id="Gw_MI_Recalc" name="نیاز به محاسبه مجدد دارد؟"/>
+    <task id="Task_MI_Save" name="ثبت نهایی اطلاعات مأموریت"/>
+    <task id="Task_MI_Report" name="گزارش مالی و عملیاتی"/>
+    <endEvent id="End_MI" name="پایان"/>
+    <sequenceFlow id="Flow_MI1" sourceRef="Start_MI" targetRef="Task_MI_TimeData"/>
+    <sequenceFlow id="Flow_MI2" sourceRef="Task_MI_TimeData" targetRef="Task_MI_KmData"/>
+    <sequenceFlow id="Flow_MI3" sourceRef="Task_MI_KmData" targetRef="Task_MI_Form"/>
+    <sequenceFlow id="Flow_MI4" sourceRef="Task_MI_Form" targetRef="Task_MI_Select"/>
+    <sequenceFlow id="Flow_MI5" sourceRef="Task_MI_Select" targetRef="Task_MI_Depart"/>
+    <sequenceFlow id="Flow_MI6" sourceRef="Task_MI_Depart" targetRef="Task_MI_Return"/>
+    <sequenceFlow id="Flow_MI7" sourceRef="Task_MI_Return" targetRef="Task_MI_Km"/>
+    <sequenceFlow id="Flow_MI8" sourceRef="Task_MI_Km" targetRef="Task_MI_Distance"/>
+    <sequenceFlow id="Flow_MI9" sourceRef="Task_MI_Distance" targetRef="Task_MI_Costs"/>
+    <sequenceFlow id="Flow_MI10" sourceRef="Task_MI_Costs" targetRef="Gw_MI_Complete"/>
+    <sequenceFlow id="Flow_MI11" sourceRef="Gw_MI_Complete" targetRef="Task_MI_Error" name="خیر"/>
+    <sequenceFlow id="Flow_MI12" sourceRef="Task_MI_Error" targetRef="Task_MI_Depart"/>
+    <sequenceFlow id="Flow_MI13" sourceRef="Gw_MI_Complete" targetRef="Task_MI_Calc" name="بله"/>
+    <sequenceFlow id="Flow_MI14" sourceRef="Task_MI_Calc" targetRef="Gw_MI_Recalc"/>
+    <sequenceFlow id="Flow_MI15" sourceRef="Gw_MI_Recalc" targetRef="Task_MI_Costs" name="بله"/>
+    <sequenceFlow id="Flow_MI16" sourceRef="Gw_MI_Recalc" targetRef="Task_MI_Save" name="خیر"/>
+    <sequenceFlow id="Flow_MI17" sourceRef="Task_MI_Save" targetRef="Task_MI_Report"/>
+    <sequenceFlow id="Flow_MI18" sourceRef="Task_MI_Report" targetRef="End_MI"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_mission-info-and-kilometer">
+    <bpmndi:BPMNPlane id="BPMNPlane_mission-info-and-kilometer" bpmnElement="mission-info-and-kilometer">
+      <bpmndi:BPMNShape id="Lane_mission-info-and-kilometer_1_di" bpmnElement="Lane_mission-info-and-kilometer_1" isHorizontal="true">
+        <dc:Bounds x="0" y="0" width="7560" height="220"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_mission-info-and-kilometer_2_di" bpmnElement="Lane_mission-info-and-kilometer_2" isHorizontal="true">
+        <dc:Bounds x="0" y="220" width="7560" height="220"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_mission-info-and-kilometer_3_di" bpmnElement="Lane_mission-info-and-kilometer_3" isHorizontal="true">
+        <dc:Bounds x="0" y="440" width="7560" height="220"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_MI_di" bpmnElement="Start_MI">
+        <dc:Bounds x="60" y="122" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_TimeData_di" bpmnElement="Task_MI_TimeData">
+        <dc:Bounds x="270" y="100" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_KmData_di" bpmnElement="Task_MI_KmData">
+        <dc:Bounds x="480" y="100" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_Form_di" bpmnElement="Task_MI_Form">
+        <dc:Bounds x="690" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_Select_di" bpmnElement="Task_MI_Select">
+        <dc:Bounds x="900" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_Depart_di" bpmnElement="Task_MI_Depart">
+        <dc:Bounds x="1110" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_Return_di" bpmnElement="Task_MI_Return">
+        <dc:Bounds x="1320" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_Km_di" bpmnElement="Task_MI_Km">
+        <dc:Bounds x="1530" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_Distance_di" bpmnElement="Task_MI_Distance">
+        <dc:Bounds x="1740" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_Costs_di" bpmnElement="Task_MI_Costs">
+        <dc:Bounds x="1950" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gw_MI_Complete_di" bpmnElement="Gw_MI_Complete">
+        <dc:Bounds x="2160" y="335" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_Error_di" bpmnElement="Task_MI_Error">
+        <dc:Bounds x="2370" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_Calc_di" bpmnElement="Task_MI_Calc">
+        <dc:Bounds x="2580" y="540" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gw_MI_Recalc_di" bpmnElement="Gw_MI_Recalc">
+        <dc:Bounds x="2790" y="555" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_Save_di" bpmnElement="Task_MI_Save">
+        <dc:Bounds x="3000" y="540" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MI_Report_di" bpmnElement="Task_MI_Report">
+        <dc:Bounds x="3210" y="540" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_MI_di" bpmnElement="End_MI">
+        <dc:Bounds x="3420" y="562" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_MI1_di" bpmnElement="Flow_MI1">
+        <di:waypoint x="96" y="140.0"/>
+        <di:waypoint x="270" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI2_di" bpmnElement="Flow_MI2">
+        <di:waypoint x="410" y="140.0"/>
+        <di:waypoint x="480" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI3_di" bpmnElement="Flow_MI3">
+        <di:waypoint x="620" y="140.0"/>
+        <di:waypoint x="660" y="140.0"/>
+        <di:waypoint x="660" y="360.0"/>
+        <di:waypoint x="690" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI4_di" bpmnElement="Flow_MI4">
+        <di:waypoint x="830" y="360.0"/>
+        <di:waypoint x="900" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI5_di" bpmnElement="Flow_MI5">
+        <di:waypoint x="1040" y="360.0"/>
+        <di:waypoint x="1110" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI6_di" bpmnElement="Flow_MI6">
+        <di:waypoint x="1250" y="360.0"/>
+        <di:waypoint x="1320" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI7_di" bpmnElement="Flow_MI7">
+        <di:waypoint x="1460" y="360.0"/>
+        <di:waypoint x="1530" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI8_di" bpmnElement="Flow_MI8">
+        <di:waypoint x="1670" y="360.0"/>
+        <di:waypoint x="1740" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI9_di" bpmnElement="Flow_MI9">
+        <di:waypoint x="1880" y="360.0"/>
+        <di:waypoint x="1950" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI10_di" bpmnElement="Flow_MI10">
+        <di:waypoint x="2090" y="360.0"/>
+        <di:waypoint x="2160" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI11_di" bpmnElement="Flow_MI11">
+        <di:waypoint x="2210" y="360.0"/>
+        <di:waypoint x="2370" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI12_di" bpmnElement="Flow_MI12">
+        <di:waypoint x="2510" y="360.0"/>
+        <di:waypoint x="2530" y="360.0"/>
+        <di:waypoint x="2530" y="280"/>
+        <di:waypoint x="1090" y="280"/>
+        <di:waypoint x="1090" y="360.0"/>
+        <di:waypoint x="1110" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI13_di" bpmnElement="Flow_MI13">
+        <di:waypoint x="2210" y="360.0"/>
+        <di:waypoint x="2250" y="360.0"/>
+        <di:waypoint x="2250" y="580.0"/>
+        <di:waypoint x="2580" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI14_di" bpmnElement="Flow_MI14">
+        <di:waypoint x="2720" y="580.0"/>
+        <di:waypoint x="2790" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI15_di" bpmnElement="Flow_MI15">
+        <di:waypoint x="2840" y="580.0"/>
+        <di:waypoint x="2860" y="580.0"/>
+        <di:waypoint x="2860" y="280"/>
+        <di:waypoint x="1930" y="280"/>
+        <di:waypoint x="1930" y="360.0"/>
+        <di:waypoint x="1950" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI16_di" bpmnElement="Flow_MI16">
+        <di:waypoint x="2840" y="580.0"/>
+        <di:waypoint x="3000" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI17_di" bpmnElement="Flow_MI17">
+        <di:waypoint x="3140" y="580.0"/>
+        <di:waypoint x="3210" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MI18_di" bpmnElement="Flow_MI18">
+        <di:waypoint x="3350" y="580.0"/>
+        <di:waypoint x="3420" y="580.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_vehicle-registration" targetNamespace="https://example.com/transport-bpmn">
+  <process id="vehicle-registration" name="فرآیند ثبت خودرو" isExecutable="false">
+    <laneSet id="LaneSet_vehicle-registration">
+      <lane id="Lane_vehicle-registration_1" name="کاربر / مسئول اداری">
+        <flowNodeRef>Start_V</flowNodeRef>
+        <flowNodeRef>Task_V_Form</flowNodeRef>
+        <flowNodeRef>Task_V_Type</flowNodeRef>
+        <flowNodeRef>Task_V_Base</flowNodeRef>
+        <flowNodeRef>Task_V_Insurance</flowNodeRef>
+      </lane>
+      <lane id="Lane_vehicle-registration_2" name="پشتیبانی / کنترل">
+        <flowNodeRef>Gw_V_Complete</flowNodeRef>
+        <flowNodeRef>Task_V_Error</flowNodeRef>
+        <flowNodeRef>Gw_V_InsuranceValid</flowNodeRef>
+        <flowNodeRef>Task_V_Warn</flowNodeRef>
+        <flowNodeRef>Gw_V_Continue</flowNodeRef>
+        <flowNodeRef>Task_V_Save</flowNodeRef>
+        <flowNodeRef>Task_V_Record</flowNodeRef>
+        <flowNodeRef>End_V</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="Start_V" name="شروع"/>
+    <userTask id="Task_V_Form" name="ورود به فرم ثبت خودرو"/>
+    <task id="Task_V_Type" name="انتخاب نوع خودرو و وضعیت"/>
+    <task id="Task_V_Base" name="ورود شماره شاسی، پلاک، مدل و رنگ"/>
+    <task id="Task_V_Insurance" name="ورود تاریخ بیمه شخص ثالث و بدنه"/>
+    <exclusiveGateway id="Gw_V_Complete" name="اطلاعات اصلی کامل است؟"/>
+    <task id="Task_V_Error" name="نمایش خطا و اصلاح"/>
+    <exclusiveGateway id="Gw_V_InsuranceValid" name="بیمه معتبر است؟"/>
+    <task id="Task_V_Warn" name="نمایش هشدار بیمه"/>
+    <exclusiveGateway id="Gw_V_Continue" name="ادامه ثبت مجاز است؟"/>
+    <task id="Task_V_Save" name="ثبت خودرو"/>
+    <task id="Task_V_Record" name="ایجاد رکورد جستجوپذیر"/>
+    <endEvent id="End_V" name="پایان"/>
+    <sequenceFlow id="Flow_V1" sourceRef="Start_V" targetRef="Task_V_Form"/>
+    <sequenceFlow id="Flow_V2" sourceRef="Task_V_Form" targetRef="Task_V_Type"/>
+    <sequenceFlow id="Flow_V3" sourceRef="Task_V_Type" targetRef="Task_V_Base"/>
+    <sequenceFlow id="Flow_V4" sourceRef="Task_V_Base" targetRef="Task_V_Insurance"/>
+    <sequenceFlow id="Flow_V5" sourceRef="Task_V_Insurance" targetRef="Gw_V_Complete"/>
+    <sequenceFlow id="Flow_V6" sourceRef="Gw_V_Complete" targetRef="Task_V_Error" name="خیر"/>
+    <sequenceFlow id="Flow_V7" sourceRef="Task_V_Error" targetRef="Task_V_Type"/>
+    <sequenceFlow id="Flow_V8" sourceRef="Gw_V_Complete" targetRef="Gw_V_InsuranceValid" name="بله"/>
+    <sequenceFlow id="Flow_V9" sourceRef="Gw_V_InsuranceValid" targetRef="Task_V_Warn" name="خیر"/>
+    <sequenceFlow id="Flow_V10" sourceRef="Task_V_Warn" targetRef="Gw_V_Continue"/>
+    <sequenceFlow id="Flow_V11" sourceRef="Gw_V_Continue" targetRef="Task_V_Type" name="خیر"/>
+    <sequenceFlow id="Flow_V12" sourceRef="Gw_V_Continue" targetRef="Task_V_Save" name="بله"/>
+    <sequenceFlow id="Flow_V13" sourceRef="Gw_V_InsuranceValid" targetRef="Task_V_Save" name="بله"/>
+    <sequenceFlow id="Flow_V14" sourceRef="Task_V_Save" targetRef="Task_V_Record"/>
+    <sequenceFlow id="Flow_V15" sourceRef="Task_V_Record" targetRef="End_V"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_vehicle-registration">
+    <bpmndi:BPMNPlane id="BPMNPlane_vehicle-registration" bpmnElement="vehicle-registration">
+      <bpmndi:BPMNShape id="Lane_vehicle-registration_1_di" bpmnElement="Lane_vehicle-registration_1" isHorizontal="true">
+        <dc:Bounds x="0" y="0" width="5880" height="220"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_vehicle-registration_2_di" bpmnElement="Lane_vehicle-registration_2" isHorizontal="true">
+        <dc:Bounds x="0" y="220" width="5880" height="220"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_V_di" bpmnElement="Start_V">
+        <dc:Bounds x="60" y="122" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_V_Form_di" bpmnElement="Task_V_Form">
+        <dc:Bounds x="270" y="100" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_V_Type_di" bpmnElement="Task_V_Type">
+        <dc:Bounds x="480" y="100" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_V_Base_di" bpmnElement="Task_V_Base">
+        <dc:Bounds x="690" y="100" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_V_Insurance_di" bpmnElement="Task_V_Insurance">
+        <dc:Bounds x="900" y="100" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gw_V_Complete_di" bpmnElement="Gw_V_Complete">
+        <dc:Bounds x="1110" y="335" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_V_Error_di" bpmnElement="Task_V_Error">
+        <dc:Bounds x="1320" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gw_V_InsuranceValid_di" bpmnElement="Gw_V_InsuranceValid">
+        <dc:Bounds x="1530" y="335" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_V_Warn_di" bpmnElement="Task_V_Warn">
+        <dc:Bounds x="1740" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gw_V_Continue_di" bpmnElement="Gw_V_Continue">
+        <dc:Bounds x="1950" y="335" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_V_Save_di" bpmnElement="Task_V_Save">
+        <dc:Bounds x="2160" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_V_Record_di" bpmnElement="Task_V_Record">
+        <dc:Bounds x="2370" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_V_di" bpmnElement="End_V">
+        <dc:Bounds x="2580" y="342" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_V1_di" bpmnElement="Flow_V1">
+        <di:waypoint x="96" y="140.0"/>
+        <di:waypoint x="270" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V2_di" bpmnElement="Flow_V2">
+        <di:waypoint x="410" y="140.0"/>
+        <di:waypoint x="480" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V3_di" bpmnElement="Flow_V3">
+        <di:waypoint x="620" y="140.0"/>
+        <di:waypoint x="690" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V4_di" bpmnElement="Flow_V4">
+        <di:waypoint x="830" y="140.0"/>
+        <di:waypoint x="900" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V5_di" bpmnElement="Flow_V5">
+        <di:waypoint x="1040" y="140.0"/>
+        <di:waypoint x="1080" y="140.0"/>
+        <di:waypoint x="1080" y="360.0"/>
+        <di:waypoint x="1110" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V6_di" bpmnElement="Flow_V6">
+        <di:waypoint x="1160" y="360.0"/>
+        <di:waypoint x="1320" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V7_di" bpmnElement="Flow_V7">
+        <di:waypoint x="1460" y="360.0"/>
+        <di:waypoint x="1480" y="360.0"/>
+        <di:waypoint x="1480" y="60"/>
+        <di:waypoint x="460" y="60"/>
+        <di:waypoint x="460" y="140.0"/>
+        <di:waypoint x="480" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V8_di" bpmnElement="Flow_V8">
+        <di:waypoint x="1160" y="360.0"/>
+        <di:waypoint x="1530" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V9_di" bpmnElement="Flow_V9">
+        <di:waypoint x="1580" y="360.0"/>
+        <di:waypoint x="1740" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V10_di" bpmnElement="Flow_V10">
+        <di:waypoint x="1880" y="360.0"/>
+        <di:waypoint x="1950" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V11_di" bpmnElement="Flow_V11">
+        <di:waypoint x="2000" y="360.0"/>
+        <di:waypoint x="2020" y="360.0"/>
+        <di:waypoint x="2020" y="60"/>
+        <di:waypoint x="460" y="60"/>
+        <di:waypoint x="460" y="140.0"/>
+        <di:waypoint x="480" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V12_di" bpmnElement="Flow_V12">
+        <di:waypoint x="2000" y="360.0"/>
+        <di:waypoint x="2160" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V13_di" bpmnElement="Flow_V13">
+        <di:waypoint x="1580" y="360.0"/>
+        <di:waypoint x="2160" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V14_di" bpmnElement="Flow_V14">
+        <di:waypoint x="2300" y="360.0"/>
+        <di:waypoint x="2370" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_V15_di" bpmnElement="Flow_V15">
+        <di:waypoint x="2510" y="360.0"/>
+        <di:waypoint x="2580" y="360.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

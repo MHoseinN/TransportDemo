@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_city-province-registration" targetNamespace="https://example.com/transport-bpmn">
+  <process id="city-province-registration" name="فرآیند ثبت شهر و استان" isExecutable="false">
+    <laneSet id="LaneSet_city-province-registration">
+      <lane id="Lane_city-province-registration_1" name="کاربر / درخواست‌دهنده">
+        <flowNodeRef>Start_CP</flowNodeRef>
+        <flowNodeRef>Task_CP_Form</flowNodeRef>
+        <flowNodeRef>Task_CP_Province</flowNodeRef>
+        <flowNodeRef>Task_CP_City</flowNodeRef>
+      </lane>
+      <lane id="Lane_city-province-registration_2" name="واحد فناوری اطلاعات / مدیر داده پایه">
+        <flowNodeRef>Task_CP_Validate</flowNodeRef>
+        <flowNodeRef>Gw_CP_Valid</flowNodeRef>
+        <flowNodeRef>Task_CP_Error</flowNodeRef>
+        <flowNodeRef>Task_CP_Save</flowNodeRef>
+        <flowNodeRef>End_CP</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="Start_CP" name="شروع"/>
+    <userTask id="Task_CP_Form" name="ورود به فرم شهر و استان"/>
+    <task id="Task_CP_Province" name="انتخاب یا ثبت استان"/>
+    <task id="Task_CP_City" name="ثبت شهر وابسته به استان"/>
+    <task id="Task_CP_Validate" name="اعتبارسنجی اطلاعات"/>
+    <exclusiveGateway id="Gw_CP_Valid" name="اطلاعات معتبر و غیرتکراری است؟"/>
+    <task id="Task_CP_Error" name="نمایش خطا و اصلاح"/>
+    <task id="Task_CP_Save" name="ذخیره رکورد"/>
+    <endEvent id="End_CP" name="پایان"/>
+    <sequenceFlow id="Flow_CP1" sourceRef="Start_CP" targetRef="Task_CP_Form"/>
+    <sequenceFlow id="Flow_CP2" sourceRef="Task_CP_Form" targetRef="Task_CP_Province"/>
+    <sequenceFlow id="Flow_CP3" sourceRef="Task_CP_Province" targetRef="Task_CP_City"/>
+    <sequenceFlow id="Flow_CP4" sourceRef="Task_CP_City" targetRef="Task_CP_Validate"/>
+    <sequenceFlow id="Flow_CP5" sourceRef="Task_CP_Validate" targetRef="Gw_CP_Valid"/>
+    <sequenceFlow id="Flow_CP6" sourceRef="Gw_CP_Valid" targetRef="Task_CP_Error" name="خیر"/>
+    <sequenceFlow id="Flow_CP7" sourceRef="Task_CP_Error" targetRef="Task_CP_Province"/>
+    <sequenceFlow id="Flow_CP8" sourceRef="Gw_CP_Valid" targetRef="Task_CP_Save" name="بله"/>
+    <sequenceFlow id="Flow_CP9" sourceRef="Task_CP_Save" targetRef="End_CP"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_city-province-registration">
+    <bpmndi:BPMNPlane id="BPMNPlane_city-province-registration" bpmnElement="city-province-registration">
+      <bpmndi:BPMNShape id="Lane_city-province-registration_1_di" bpmnElement="Lane_city-province-registration_1" isHorizontal="true">
+        <dc:Bounds x="0" y="0" width="4200" height="220"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_city-province-registration_2_di" bpmnElement="Lane_city-province-registration_2" isHorizontal="true">
+        <dc:Bounds x="0" y="220" width="4200" height="220"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_CP_di" bpmnElement="Start_CP">
+        <dc:Bounds x="60" y="122" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CP_Form_di" bpmnElement="Task_CP_Form">
+        <dc:Bounds x="270" y="100" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CP_Province_di" bpmnElement="Task_CP_Province">
+        <dc:Bounds x="480" y="100" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CP_City_di" bpmnElement="Task_CP_City">
+        <dc:Bounds x="690" y="100" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CP_Validate_di" bpmnElement="Task_CP_Validate">
+        <dc:Bounds x="900" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gw_CP_Valid_di" bpmnElement="Gw_CP_Valid">
+        <dc:Bounds x="1110" y="335" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CP_Error_di" bpmnElement="Task_CP_Error">
+        <dc:Bounds x="1320" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CP_Save_di" bpmnElement="Task_CP_Save">
+        <dc:Bounds x="1530" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_CP_di" bpmnElement="End_CP">
+        <dc:Bounds x="1740" y="342" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_CP1_di" bpmnElement="Flow_CP1">
+        <di:waypoint x="96" y="140.0"/>
+        <di:waypoint x="270" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CP2_di" bpmnElement="Flow_CP2">
+        <di:waypoint x="410" y="140.0"/>
+        <di:waypoint x="480" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CP3_di" bpmnElement="Flow_CP3">
+        <di:waypoint x="620" y="140.0"/>
+        <di:waypoint x="690" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CP4_di" bpmnElement="Flow_CP4">
+        <di:waypoint x="830" y="140.0"/>
+        <di:waypoint x="870" y="140.0"/>
+        <di:waypoint x="870" y="360.0"/>
+        <di:waypoint x="900" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CP5_di" bpmnElement="Flow_CP5">
+        <di:waypoint x="1040" y="360.0"/>
+        <di:waypoint x="1110" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CP6_di" bpmnElement="Flow_CP6">
+        <di:waypoint x="1160" y="360.0"/>
+        <di:waypoint x="1320" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CP7_di" bpmnElement="Flow_CP7">
+        <di:waypoint x="1460" y="360.0"/>
+        <di:waypoint x="1480" y="360.0"/>
+        <di:waypoint x="1480" y="60"/>
+        <di:waypoint x="460" y="60"/>
+        <di:waypoint x="460" y="140.0"/>
+        <di:waypoint x="480" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CP8_di" bpmnElement="Flow_CP8">
+        <di:waypoint x="1160" y="360.0"/>
+        <di:waypoint x="1530" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CP9_di" bpmnElement="Flow_CP9">
+        <di:waypoint x="1670" y="360.0"/>
+        <di:waypoint x="1740" y="360.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

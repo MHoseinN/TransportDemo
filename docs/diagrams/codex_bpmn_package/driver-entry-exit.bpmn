@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_driver-entry-exit" targetNamespace="https://example.com/transport-bpmn">
+  <process id="driver-entry-exit" name="فرآیند ثبت ورود و خروج راننده" isExecutable="false">
+    <laneSet id="LaneSet_driver-entry-exit">
+      <lane id="Lane_driver-entry-exit_1" name="راننده">
+        <flowNodeRef>Start_EE</flowNodeRef>
+        <flowNodeRef>Task_EE_Announce</flowNodeRef>
+      </lane>
+      <lane id="Lane_driver-entry-exit_2" name="کاربر / مسئول ثبت">
+        <flowNodeRef>Task_EE_Form</flowNodeRef>
+        <flowNodeRef>Task_EE_SelectDriver</flowNodeRef>
+        <flowNodeRef>Task_EE_Date</flowNodeRef>
+        <flowNodeRef>Task_EE_In</flowNodeRef>
+        <flowNodeRef>Task_EE_Out</flowNodeRef>
+      </lane>
+      <lane id="Lane_driver-entry-exit_3" name="مدیر واحد / پشتیبانی">
+        <flowNodeRef>Gw_EE_Existing</flowNodeRef>
+        <flowNodeRef>Task_EE_Check</flowNodeRef>
+        <flowNodeRef>Gw_EE_Authorized</flowNodeRef>
+        <flowNodeRef>End_EE_NoSave</flowNodeRef>
+        <flowNodeRef>Task_EE_Save</flowNodeRef>
+        <flowNodeRef>Task_EE_Monthly</flowNodeRef>
+        <flowNodeRef>End_EE</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="Start_EE" name="شروع"/>
+    <task id="Task_EE_Announce" name="اعلام زمان ورود و خروج"/>
+    <userTask id="Task_EE_Form" name="ورود به فرم ثبت ورود و خروج"/>
+    <task id="Task_EE_SelectDriver" name="انتخاب راننده"/>
+    <task id="Task_EE_Date" name="انتخاب تاریخ"/>
+    <task id="Task_EE_In" name="ثبت ساعت ورود"/>
+    <task id="Task_EE_Out" name="ثبت ساعت خروج"/>
+    <exclusiveGateway id="Gw_EE_Existing" name="رکورد قبلی برای همان روز وجود دارد؟"/>
+    <task id="Task_EE_Check" name="بررسی ثبت چند تردد یا ویرایش"/>
+    <exclusiveGateway id="Gw_EE_Authorized" name="کاربر مجاز است؟"/>
+    <endEvent id="End_EE_NoSave" name="خاتمه بدون ثبت"/>
+    <task id="Task_EE_Save" name="ذخیره رکورد"/>
+    <task id="Task_EE_Monthly" name="ارسال برای محاسبات ماهانه"/>
+    <endEvent id="End_EE" name="پایان"/>
+    <sequenceFlow id="Flow_EE1" sourceRef="Start_EE" targetRef="Task_EE_Announce"/>
+    <sequenceFlow id="Flow_EE2" sourceRef="Task_EE_Announce" targetRef="Task_EE_Form"/>
+    <sequenceFlow id="Flow_EE3" sourceRef="Task_EE_Form" targetRef="Task_EE_SelectDriver"/>
+    <sequenceFlow id="Flow_EE4" sourceRef="Task_EE_SelectDriver" targetRef="Task_EE_Date"/>
+    <sequenceFlow id="Flow_EE5" sourceRef="Task_EE_Date" targetRef="Task_EE_In"/>
+    <sequenceFlow id="Flow_EE6" sourceRef="Task_EE_In" targetRef="Task_EE_Out"/>
+    <sequenceFlow id="Flow_EE7" sourceRef="Task_EE_Out" targetRef="Gw_EE_Existing"/>
+    <sequenceFlow id="Flow_EE8" sourceRef="Gw_EE_Existing" targetRef="Task_EE_Check" name="بله"/>
+    <sequenceFlow id="Flow_EE9" sourceRef="Task_EE_Check" targetRef="Gw_EE_Authorized"/>
+    <sequenceFlow id="Flow_EE10" sourceRef="Gw_EE_Authorized" targetRef="End_EE_NoSave" name="خیر"/>
+    <sequenceFlow id="Flow_EE11" sourceRef="Gw_EE_Authorized" targetRef="Task_EE_Save" name="بله"/>
+    <sequenceFlow id="Flow_EE12" sourceRef="Gw_EE_Existing" targetRef="Task_EE_Save" name="خیر"/>
+    <sequenceFlow id="Flow_EE13" sourceRef="Task_EE_Save" targetRef="Task_EE_Monthly"/>
+    <sequenceFlow id="Flow_EE14" sourceRef="Task_EE_Monthly" targetRef="End_EE"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_driver-entry-exit">
+    <bpmndi:BPMNPlane id="BPMNPlane_driver-entry-exit" bpmnElement="driver-entry-exit">
+      <bpmndi:BPMNShape id="Lane_driver-entry-exit_1_di" bpmnElement="Lane_driver-entry-exit_1" isHorizontal="true">
+        <dc:Bounds x="0" y="0" width="5880" height="220"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_driver-entry-exit_2_di" bpmnElement="Lane_driver-entry-exit_2" isHorizontal="true">
+        <dc:Bounds x="0" y="220" width="5880" height="220"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_driver-entry-exit_3_di" bpmnElement="Lane_driver-entry-exit_3" isHorizontal="true">
+        <dc:Bounds x="0" y="440" width="5880" height="220"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_EE_di" bpmnElement="Start_EE">
+        <dc:Bounds x="60" y="122" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EE_Announce_di" bpmnElement="Task_EE_Announce">
+        <dc:Bounds x="270" y="100" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EE_Form_di" bpmnElement="Task_EE_Form">
+        <dc:Bounds x="480" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EE_SelectDriver_di" bpmnElement="Task_EE_SelectDriver">
+        <dc:Bounds x="690" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EE_Date_di" bpmnElement="Task_EE_Date">
+        <dc:Bounds x="900" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EE_In_di" bpmnElement="Task_EE_In">
+        <dc:Bounds x="1110" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EE_Out_di" bpmnElement="Task_EE_Out">
+        <dc:Bounds x="1320" y="320" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gw_EE_Existing_di" bpmnElement="Gw_EE_Existing">
+        <dc:Bounds x="1530" y="555" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EE_Check_di" bpmnElement="Task_EE_Check">
+        <dc:Bounds x="1740" y="540" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gw_EE_Authorized_di" bpmnElement="Gw_EE_Authorized">
+        <dc:Bounds x="1950" y="555" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_EE_NoSave_di" bpmnElement="End_EE_NoSave">
+        <dc:Bounds x="2160" y="562" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EE_Save_di" bpmnElement="Task_EE_Save">
+        <dc:Bounds x="2160" y="540" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EE_Monthly_di" bpmnElement="Task_EE_Monthly">
+        <dc:Bounds x="2370" y="540" width="140" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_EE_di" bpmnElement="End_EE">
+        <dc:Bounds x="2580" y="562" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_EE1_di" bpmnElement="Flow_EE1">
+        <di:waypoint x="96" y="140.0"/>
+        <di:waypoint x="270" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE2_di" bpmnElement="Flow_EE2">
+        <di:waypoint x="410" y="140.0"/>
+        <di:waypoint x="450" y="140.0"/>
+        <di:waypoint x="450" y="360.0"/>
+        <di:waypoint x="480" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE3_di" bpmnElement="Flow_EE3">
+        <di:waypoint x="620" y="360.0"/>
+        <di:waypoint x="690" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE4_di" bpmnElement="Flow_EE4">
+        <di:waypoint x="830" y="360.0"/>
+        <di:waypoint x="900" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE5_di" bpmnElement="Flow_EE5">
+        <di:waypoint x="1040" y="360.0"/>
+        <di:waypoint x="1110" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE6_di" bpmnElement="Flow_EE6">
+        <di:waypoint x="1250" y="360.0"/>
+        <di:waypoint x="1320" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE7_di" bpmnElement="Flow_EE7">
+        <di:waypoint x="1460" y="360.0"/>
+        <di:waypoint x="1500" y="360.0"/>
+        <di:waypoint x="1500" y="580.0"/>
+        <di:waypoint x="1530" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE8_di" bpmnElement="Flow_EE8">
+        <di:waypoint x="1580" y="580.0"/>
+        <di:waypoint x="1740" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE9_di" bpmnElement="Flow_EE9">
+        <di:waypoint x="1880" y="580.0"/>
+        <di:waypoint x="1950" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE10_di" bpmnElement="Flow_EE10">
+        <di:waypoint x="2000" y="580.0"/>
+        <di:waypoint x="2160" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE11_di" bpmnElement="Flow_EE11">
+        <di:waypoint x="2000" y="580.0"/>
+        <di:waypoint x="2160" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE12_di" bpmnElement="Flow_EE12">
+        <di:waypoint x="1580" y="580.0"/>
+        <di:waypoint x="2160" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE13_di" bpmnElement="Flow_EE13">
+        <di:waypoint x="2300" y="580.0"/>
+        <di:waypoint x="2370" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EE14_di" bpmnElement="Flow_EE14">
+        <di:waypoint x="2510" y="580.0"/>
+        <di:waypoint x="2580" y="580.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
