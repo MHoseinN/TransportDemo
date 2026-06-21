@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VisioDocument xmlns="http://schemas.microsoft.com/visio/2003/core" xmlns:v="http://schemas.microsoft.com/visio/2003/core" xml:space="preserve">
+<DocumentProperties><Title>BPMN پایگاه دانش</Title><Subject>Knowledge Base BPMN</Subject><Creator>ChatGPT</Creator></DocumentProperties>
+<Pages>
+<Page ID="0" NameU="BPMN_Knowledge_Base" Name="BPMN_Knowledge_Base">
+<PageSheet><PageProps><PageWidth>18</PageWidth><PageHeight>12</PageHeight></PageProps></PageSheet>
+<Shapes>
+<Shape ID="1" Type="Shape" NameU="Pool: نرم‌افزار اصلی / سیستم خارجی" Name="Pool: نرم‌افزار اصلی / سیستم خارجی">
+<XForm><PinX>9.0000</PinX><PinY>11.1000</PinY><Width>17.6000</Width><Height>1.4000</Height><LocPinX>8.8000</LocPinX><LocPinY>0.7000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F2F2F2</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#777777</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>Pool: نرم‌افزار اصلی / سیستم خارجی</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>17.6000</X><Y>0</Y></LineTo><LineTo IX="3"><X>17.6000</X><Y>1.4000</Y></LineTo><LineTo IX="4"><X>0</X><Y>1.4000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="2" Type="Shape" NameU="Pool: سامانه پایگاه دانش" Name="Pool: سامانه پایگاه دانش">
+<XForm><PinX>9.0000</PinX><PinY>5.3000</PinY><Width>17.6000</Width><Height>9.6000</Height><LocPinX>8.8000</LocPinX><LocPinY>4.8000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFFFFF</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#777777</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>Pool: سامانه پایگاه دانش</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>17.6000</X><Y>0</Y></LineTo><LineTo IX="3"><X>17.6000</X><Y>9.6000</Y></LineTo><LineTo IX="4"><X>0</X><Y>9.6000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="3" Type="Shape" NameU="Lane: مدیر / ادمین ارشد" Name="Lane: مدیر / ادمین ارشد">
+<XForm><PinX>9.0000</PinX><PinY>8.8500</PinY><Width>17.6000</Width><Height>1.9000</Height><LocPinX>8.8000</LocPinX><LocPinY>0.9500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFFFFF</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#BBBBBB</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>Lane: مدیر / ادمین ارشد</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>17.6000</X><Y>0</Y></LineTo><LineTo IX="3"><X>17.6000</X><Y>1.9000</Y></LineTo><LineTo IX="4"><X>0</X><Y>1.9000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="4" Type="Shape" NameU="Lane: سرپرست" Name="Lane: سرپرست">
+<XForm><PinX>9.0000</PinX><PinY>6.5500</PinY><Width>17.6000</Width><Height>1.9000</Height><LocPinX>8.8000</LocPinX><LocPinY>0.9500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFFFFF</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#BBBBBB</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>Lane: سرپرست</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>17.6000</X><Y>0</Y></LineTo><LineTo IX="3"><X>17.6000</X><Y>1.9000</Y></LineTo><LineTo IX="4"><X>0</X><Y>1.9000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="5" Type="Shape" NameU="Lane: اپراتور / کاربر" Name="Lane: اپراتور / کاربر">
+<XForm><PinX>9.0000</PinX><PinY>4.2500</PinY><Width>17.6000</Width><Height>1.9000</Height><LocPinX>8.8000</LocPinX><LocPinY>0.9500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFFFFF</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#BBBBBB</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>Lane: اپراتور / کاربر</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>17.6000</X><Y>0</Y></LineTo><LineTo IX="3"><X>17.6000</X><Y>1.9000</Y></LineTo><LineTo IX="4"><X>0</X><Y>1.9000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="6" Type="Shape" NameU="Lane: سیستم پایگاه دانش" Name="Lane: سیستم پایگاه دانش">
+<XForm><PinX>9.0000</PinX><PinY>1.7000</PinY><Width>17.6000</Width><Height>2.4000</Height><LocPinX>8.8000</LocPinX><LocPinY>1.2000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFFFFF</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#BBBBBB</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>Lane: سیستم پایگاه دانش</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>17.6000</X><Y>0</Y></LineTo><LineTo IX="3"><X>17.6000</X><Y>2.4000</Y></LineTo><LineTo IX="4"><X>0</X><Y>2.4000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="7" Type="Shape" NameU="Flow ext_start to ext_req" Name="Flow ext_start to ext_req">
+<XForm><PinX>2.2500</PinX><PinY>11.0000</PinY><Width>0.7000</Width><Height>0.0100</Height><LocPinX>0.3500</LocPinX><LocPinY>0.0050</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0100</Y></MoveTo><LineTo IX="2"><X>0.7000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="8" Type="Shape" NameU="Flow ext_resp to ext_end" Name="Flow ext_resp to ext_end">
+<XForm><PinX>16.5500</PinX><PinY>11.0000</PinY><Width>0.5000</Width><Height>0.0100</Height><LocPinX>0.2500</LocPinX><LocPinY>0.0050</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0100</Y></MoveTo><LineTo IX="2"><X>0.5000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="9" Type="Shape" NameU="Flow m_start to m_login" Name="Flow m_start to m_login">
+<XForm><PinX>1.9500</PinX><PinY>9.2500</PinY><Width>0.5000</Width><Height>0.0100</Height><LocPinX>0.2500</LocPinX><LocPinY>0.0050</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0100</Y></MoveTo><LineTo IX="2"><X>0.5000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="10" Type="Shape" NameU="Flow m_login to sys_auth" Name="Flow m_login to sys_auth">
+<XForm><PinX>2.9750</PinX><PinY>5.8250</PinY><Width>0.1347</Width><Height>6.1500</Height><LocPinX>0.0673</LocPinX><LocPinY>3.0750</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>6.1500</Y></MoveTo><LineTo IX="2"><X>0.1347</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="11" Type="Shape" NameU="Flow sys_auth to m_action" Name="Flow sys_auth to m_action">
+<XForm><PinX>3.8382</PinX><PinY>5.7500</PinY><Width>1.4118</Width><Height>6.0000</Height><LocPinX>0.7059</LocPinX><LocPinY>3.0000</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>نقش مدیر</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>1.4118</X><Y>6.0000</Y></LineTo></Geom>
+</Shape><Shape ID="12" Type="Shape" NameU="Flow m_action to m_direct" Name="Flow m_action to m_direct">
+<XForm><PinX>5.4500</PinX><PinY>9.2381</PinY><Width>0.7000</Width><Height>0.0333</Height><LocPinX>0.3500</LocPinX><LocPinY>0.0167</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>ثبت/ویرایش</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>0.7000</X><Y>0.0333</Y></LineTo></Geom>
+</Shape><Shape ID="13" Type="Shape" NameU="Flow m_action to m_review" Name="Flow m_action to m_review">
+<XForm><PinX>5.4926</PinX><PinY>8.8589</PinY><Width>0.7853</Width><Height>0.3179</Height><LocPinX>0.3926</LocPinX><LocPinY>0.1589</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>بررسی</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.3179</Y></MoveTo><LineTo IX="2"><X>0.7853</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="14" Type="Shape" NameU="Flow m_direct to sys_validate" Name="Flow m_direct to sys_validate">
+<XForm><PinX>6.6996</PinX><PinY>5.8750</PinY><Width>0.0890</Width><Height>6.0500</Height><LocPinX>0.0445</LocPinX><LocPinY>3.0250</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0890</X><Y>6.0500</Y></MoveTo><LineTo IX="2"><X>0.0000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="15" Type="Shape" NameU="Flow sys_validate to sys_publish" Name="Flow sys_validate to sys_publish">
+<XForm><PinX>8.9500</PinX><PinY>2.5479</PinY><Width>2.9000</Width><Height>0.0604</Height><LocPinX>1.4500</LocPinX><LocPinY>0.0302</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>معتبر</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>2.9000</X><Y>0.0604</Y></LineTo></Geom>
+</Shape><Shape ID="16" Type="Shape" NameU="Flow m_review to m_decision" Name="Flow m_review to m_decision">
+<XForm><PinX>8.0000</PinX><PinY>8.3375</PinY><Width>0.6000</Width><Height>0.0060</Height><LocPinX>0.3000</LocPinX><LocPinY>0.0030</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0060</Y></MoveTo><LineTo IX="2"><X>0.6000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="17" Type="Shape" NameU="Flow m_decision to sys_publish" Name="Flow m_decision to sys_publish">
+<XForm><PinX>10.1118</PinX><PinY>5.4400</PinY><Width>2.2995</Width><Height>4.8800</Height><LocPinX>1.1497</LocPinX><LocPinY>2.4400</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>بله</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>4.8800</Y></MoveTo><LineTo IX="2"><X>2.2995</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="18" Type="Shape" NameU="Flow m_decision to m_reject" Name="Flow m_decision to m_reject">
+<XForm><PinX>9.6500</PinX><PinY>8.2768</PinY><Width>0.9000</Width><Height>0.0532</Height><LocPinX>0.4500</LocPinX><LocPinY>0.0266</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>خیر</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0532</Y></MoveTo><LineTo IX="2"><X>0.9000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="19" Type="Shape" NameU="Flow m_reject to sys_log" Name="Flow m_reject to sys_log">
+<XForm><PinX>13.5765</PinX><PinY>5.4000</PinY><Width>4.6903</Width><Height>5.0000</Height><LocPinX>2.3451</LocPinX><LocPinY>2.5000</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>5.0000</Y></MoveTo><LineTo IX="2"><X>4.6903</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="20" Type="Shape" NameU="Flow s_start to s_login" Name="Flow s_start to s_login">
+<XForm><PinX>1.9750</PinX><PinY>6.9500</PinY><Width>0.4500</Width><Height>0.0100</Height><LocPinX>0.2250</LocPinX><LocPinY>0.0050</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0100</Y></MoveTo><LineTo IX="2"><X>0.4500</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="21" Type="Shape" NameU="Flow s_login to sys_auth" Name="Flow s_login to sys_auth">
+<XForm><PinX>2.9750</PinX><PinY>4.6750</PinY><Width>0.1269</Width><Height>3.8500</Height><LocPinX>0.0635</LocPinX><LocPinY>1.9250</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>3.8500</Y></MoveTo><LineTo IX="2"><X>0.1269</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="22" Type="Shape" NameU="Flow sys_auth to s_action" Name="Flow sys_auth to s_action">
+<XForm><PinX>3.8322</PinX><PinY>4.6000</PinY><Width>1.3156</Width><Height>3.7000</Height><LocPinX>0.6578</LocPinX><LocPinY>1.8500</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>نقش سرپرست</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>1.3156</X><Y>3.7000</Y></LineTo></Geom>
+</Shape><Shape ID="23" Type="Shape" NameU="Flow s_action to s_doc" Name="Flow s_action to s_doc">
+<XForm><PinX>5.4500</PinX><PinY>6.9571</PinY><Width>0.7000</Width><Height>0.0500</Height><LocPinX>0.3500</LocPinX><LocPinY>0.0250</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>سند</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>0.7000</X><Y>0.0500</Y></LineTo></Geom>
+</Shape><Shape ID="24" Type="Shape" NameU="Flow s_action to s_msgcat" Name="Flow s_action to s_msgcat">
+<XForm><PinX>5.4583</PinX><PinY>6.5536</PinY><Width>0.7167</Width><Height>0.3071</Height><LocPinX>0.3583</LocPinX><LocPinY>0.1536</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>پیام/دسته</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.3071</Y></MoveTo><LineTo IX="2"><X>0.7167</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="25" Type="Shape" NameU="Flow s_doc to sys_validate" Name="Flow s_doc to sys_validate">
+<XForm><PinX>6.6995</PinX><PinY>4.7500</PinY><Width>0.0835</Width><Height>3.8000</Height><LocPinX>0.0418</LocPinX><LocPinY>1.9000</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0835</X><Y>3.8000</Y></MoveTo><LineTo IX="2"><X>0.0000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="26" Type="Shape" NameU="Flow sys_validate to s_submit" Name="Flow sys_validate to s_submit">
+<XForm><PinX>7.9000</PinX><PinY>4.7750</PinY><Width>2.1154</Width><Height>3.8500</Height><LocPinX>1.0577</LocPinX><LocPinY>1.9250</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>2.1154</X><Y>3.8500</Y></LineTo></Geom>
+</Shape><Shape ID="27" Type="Shape" NameU="Flow s_submit to sys_pending" Name="Flow s_submit to sys_pending">
+<XForm><PinX>9.1500</PinX><PinY>4.7750</PinY><Width>0.0100</Width><Height>3.8500</Height><LocPinX>0.0050</LocPinX><LocPinY>1.9250</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0100</X><Y>3.8500</Y></MoveTo><LineTo IX="2"><X>0.0000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="28" Type="Shape" NameU="Flow sys_pending to m_review" Name="Flow sys_pending to m_review">
+<XForm><PinX>7.9500</PinX><PinY>5.4250</PinY><Width>2.1128</Width><Height>5.1500</Height><LocPinX>1.0564</LocPinX><LocPinY>2.5750</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>2.1128</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>0.0000</X><Y>5.1500</Y></LineTo></Geom>
+</Shape><Shape ID="29" Type="Shape" NameU="Flow s_msgcat to sys_publish" Name="Flow s_msgcat to sys_publish">
+<XForm><PinX>9.1000</PinX><PinY>4.3000</PinY><Width>3.5941</Width><Height>2.6000</Height><LocPinX>1.7971</LocPinX><LocPinY>1.3000</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>2.6000</Y></MoveTo><LineTo IX="2"><X>3.5941</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="30" Type="Shape" NameU="Flow u_start to u_login" Name="Flow u_start to u_login">
+<XForm><PinX>1.9500</PinX><PinY>4.6500</PinY><Width>0.5000</Width><Height>0.0100</Height><LocPinX>0.2500</LocPinX><LocPinY>0.0050</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0100</Y></MoveTo><LineTo IX="2"><X>0.5000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="31" Type="Shape" NameU="Flow u_login to sys_auth" Name="Flow u_login to sys_auth">
+<XForm><PinX>2.9750</PinX><PinY>3.5250</PinY><Width>0.1033</Width><Height>1.5500</Height><LocPinX>0.0517</LocPinX><LocPinY>0.7750</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>1.5500</Y></MoveTo><LineTo IX="2"><X>0.1033</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="32" Type="Shape" NameU="Flow sys_auth to u_search" Name="Flow sys_auth to u_search">
+<XForm><PinX>4.0522</PinX><PinY>3.5000</PinY><Width>1.3667</Width><Height>1.5000</Height><LocPinX>0.6833</LocPinX><LocPinY>0.7500</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>نقش کاربر</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>1.3667</X><Y>1.5000</Y></LineTo></Geom>
+</Shape><Shape ID="33" Type="Shape" NameU="Flow u_search to u_view" Name="Flow u_search to u_view">
+<XForm><PinX>6.4000</PinX><PinY>4.6500</PinY><Width>0.8000</Width><Height>0.0100</Height><LocPinX>0.4000</LocPinX><LocPinY>0.0050</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0100</Y></MoveTo><LineTo IX="2"><X>0.8000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="34" Type="Shape" NameU="Flow u_view to u_old" Name="Flow u_view to u_old">
+<XForm><PinX>8.7000</PinX><PinY>4.6500</PinY><Width>0.6000</Width><Height>0.0100</Height><LocPinX>0.3000</LocPinX><LocPinY>0.0050</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0100</Y></MoveTo><LineTo IX="2"><X>0.6000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="35" Type="Shape" NameU="Flow u_old to u_warn" Name="Flow u_old to u_warn">
+<XForm><PinX>10.2500</PinX><PinY>4.8100</PinY><Width>0.7000</Width><Height>0.1400</Height><LocPinX>0.3500</LocPinX><LocPinY>0.0700</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>بله</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>0.7000</X><Y>0.1400</Y></LineTo></Geom>
+</Shape><Shape ID="36" Type="Shape" NameU="Flow u_old to u_read" Name="Flow u_old to u_read">
+<XForm><PinX>10.2500</PinX><PinY>4.4300</PinY><Width>0.7000</Width><Height>0.1925</Height><LocPinX>0.3500</LocPinX><LocPinY>0.0962</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>خیر</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.1925</Y></MoveTo><LineTo IX="2"><X>0.7000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="37" Type="Shape" NameU="Flow u_warn to u_read" Name="Flow u_warn to u_read">
+<XForm><PinX>11.4500</PinX><PinY>4.5500</PinY><Width>0.0100</Width><Height>0.3000</Height><LocPinX>0.0050</LocPinX><LocPinY>0.1500</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0100</X><Y>0.3000</Y></MoveTo><LineTo IX="2"><X>0.0000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="38" Type="Shape" NameU="Flow u_read to u_mark" Name="Flow u_read to u_mark">
+<XForm><PinX>12.6000</PinX><PinY>4.2250</PinY><Width>0.6000</Width><Height>0.0652</Height><LocPinX>0.3000</LocPinX><LocPinY>0.0326</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>0.6000</X><Y>0.0652</Y></LineTo></Geom>
+</Shape><Shape ID="39" Type="Shape" NameU="Flow u_mark to sys_log" Name="Flow u_mark to sys_log">
+<XForm><PinX>15.0000</PinX><PinY>3.4500</PinY><Width>1.5278</Width><Height>1.1000</Height><LocPinX>0.7639</LocPinX><LocPinY>0.5500</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>1.1000</Y></MoveTo><LineTo IX="2"><X>1.5278</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="40" Type="Shape" NameU="Flow sys_log to u_end" Name="Flow sys_log to u_end">
+<XForm><PinX>16.2243</PinX><PinY>3.4750</PinY><Width>0.0319</Width><Height>1.1500</Height><LocPinX>0.0160</LocPinX><LocPinY>0.5750</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0319</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>0.0000</X><Y>1.1500</Y></LineTo></Geom>
+</Shape><Shape ID="41" Type="Shape" NameU="Flow sys_publish to sys_archive" Name="Flow sys_publish to sys_archive">
+<XForm><PinX>12.7000</PinX><PinY>2.6000</PinY><Width>0.4000</Width><Height>0.0100</Height><LocPinX>0.2000</LocPinX><LocPinY>0.0050</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>نسخه جدید؟</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0100</Y></MoveTo><LineTo IX="2"><X>0.4000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="42" Type="Shape" NameU="Flow sys_archive to sys_log" Name="Flow sys_archive to sys_log">
+<XForm><PinX>15.1500</PinX><PinY>2.5739</PinY><Width>0.3000</Width><Height>0.0065</Height><LocPinX>0.1500</LocPinX><LocPinY>0.0033</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0065</Y></MoveTo><LineTo IX="2"><X>0.3000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="43" Type="Shape" NameU="Flow sys_publish to sys_log" Name="Flow sys_publish to sys_log">
+<XForm><PinX>13.9000</PinX><PinY>2.5745</PinY><Width>2.8000</Width><Height>0.0292</Height><LocPinX>1.4000</LocPinX><LocPinY>0.0146</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0292</Y></MoveTo><LineTo IX="2"><X>2.8000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="44" Type="Shape" NameU="Flow ext_req to sys_api" Name="Flow ext_req to sys_api">
+<XForm><PinX>6.0000</PinX><PinY>6.1250</PinY><Width>4.7338</Width><Height>9.0500</Height><LocPinX>2.3669</LocPinX><LocPinY>4.5250</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text>API</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>9.0500</Y></MoveTo><LineTo IX="2"><X>4.7338</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="45" Type="Shape" NameU="Flow sys_api to sys_response" Name="Flow sys_api to sys_response">
+<XForm><PinX>10.9000</PinX><PinY>1.2500</PinY><Width>2.8000</Width><Height>0.0100</Height><LocPinX>1.4000</LocPinX><LocPinY>0.0050</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0100</Y></MoveTo><LineTo IX="2"><X>2.8000</X><Y>0.0000</Y></LineTo></Geom>
+</Shape><Shape ID="46" Type="Shape" NameU="Flow sys_response to ext_resp" Name="Flow sys_response to ext_resp">
+<XForm><PinX>14.3250</PinX><PinY>6.1250</PinY><Width>2.0885</Width><Height>9.0500</Height><LocPinX>1.0442</LocPinX><LocPinY>4.5250</LocPinY><Angle>0</Angle></XForm>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0139</LineWeight><EndArrow>4</EndArrow></Line>
+<Text></Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.0000</X><Y>0.0000</Y></MoveTo><LineTo IX="2"><X>2.0885</X><Y>9.0500</Y></LineTo></Geom>
+</Shape><Shape ID="47" Type="Shape" NameU="ext_start" Name="ext_start">
+<XForm><PinX>1.3500</PinX><PinY>11.0000</PinY><Width>1.1000</Width><Height>0.6000</Height><LocPinX>0.5500</LocPinX><LocPinY>0.3000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFFFFF</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0200</LineWeight></Line>
+<Text>شروع درخواست خارجی</Text>
+<Geom IX="0"><MoveTo IX="1"><X>1.1000</X><Y>0.3000</Y></MoveTo><LineTo IX="2"><X>1.0581</X><Y>0.4148</Y></LineTo><LineTo IX="3"><X>0.9389</X><Y>0.5121</Y></LineTo><LineTo IX="4"><X>0.7605</X><Y>0.5772</Y></LineTo><LineTo IX="5"><X>0.5500</X><Y>0.6000</Y></LineTo><LineTo IX="6"><X>0.3395</X><Y>0.5772</Y></LineTo><LineTo IX="7"><X>0.1611</X><Y>0.5121</Y></LineTo><LineTo IX="8"><X>0.0419</X><Y>0.4148</Y></LineTo><LineTo IX="9"><X>0.0000</X><Y>0.3000</Y></LineTo><LineTo IX="10"><X>0.0419</X><Y>0.1852</Y></LineTo><LineTo IX="11"><X>0.1611</X><Y>0.0879</Y></LineTo><LineTo IX="12"><X>0.3395</X><Y>0.0228</Y></LineTo><LineTo IX="13"><X>0.5500</X><Y>0.0000</Y></LineTo><LineTo IX="14"><X>0.7605</X><Y>0.0228</Y></LineTo><LineTo IX="15"><X>0.9389</X><Y>0.0879</Y></LineTo><LineTo IX="16"><X>1.0581</X><Y>0.1852</Y></LineTo><LineTo IX="17"><X>1.1000</X><Y>0.3000</Y></LineTo></Geom>
+</Shape><Shape ID="48" Type="Shape" NameU="ext_req" Name="ext_req">
+<XForm><PinX>3.4500</PinX><PinY>11.0000</PinY><Width>1.7000</Width><Height>0.7000</Height><LocPinX>0.8500</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ارسال درخواست&#10;به پایگاه دانش</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.7000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.7000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="49" Type="Shape" NameU="ext_resp" Name="ext_resp">
+<XForm><PinX>15.4500</PinX><PinY>11.0000</PinY><Width>1.7000</Width><Height>0.7000</Height><LocPinX>0.8500</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>دریافت پاسخ&#10;از پایگاه دانش</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.7000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.7000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="50" Type="Shape" NameU="ext_end" Name="ext_end">
+<XForm><PinX>17.2000</PinX><PinY>11.0000</PinY><Width>0.8000</Width><Height>0.6000</Height><LocPinX>0.4000</LocPinX><LocPinY>0.3000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFFFFF</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0200</LineWeight></Line>
+<Text>پایان</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.8000</X><Y>0.3000</Y></MoveTo><LineTo IX="2"><X>0.7696</X><Y>0.4148</Y></LineTo><LineTo IX="3"><X>0.6828</X><Y>0.5121</Y></LineTo><LineTo IX="4"><X>0.5531</X><Y>0.5772</Y></LineTo><LineTo IX="5"><X>0.4000</X><Y>0.6000</Y></LineTo><LineTo IX="6"><X>0.2469</X><Y>0.5772</Y></LineTo><LineTo IX="7"><X>0.1172</X><Y>0.5121</Y></LineTo><LineTo IX="8"><X>0.0304</X><Y>0.4148</Y></LineTo><LineTo IX="9"><X>0.0000</X><Y>0.3000</Y></LineTo><LineTo IX="10"><X>0.0304</X><Y>0.1852</Y></LineTo><LineTo IX="11"><X>0.1172</X><Y>0.0879</Y></LineTo><LineTo IX="12"><X>0.2469</X><Y>0.0228</Y></LineTo><LineTo IX="13"><X>0.4000</X><Y>0.0000</Y></LineTo><LineTo IX="14"><X>0.5531</X><Y>0.0228</Y></LineTo><LineTo IX="15"><X>0.6828</X><Y>0.0879</Y></LineTo><LineTo IX="16"><X>0.7696</X><Y>0.1852</Y></LineTo><LineTo IX="17"><X>0.8000</X><Y>0.3000</Y></LineTo></Geom>
+</Shape><Shape ID="51" Type="Shape" NameU="m_start" Name="m_start">
+<XForm><PinX>1.2500</PinX><PinY>9.2500</PinY><Width>0.9000</Width><Height>0.6000</Height><LocPinX>0.4500</LocPinX><LocPinY>0.3000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFFFFF</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0200</LineWeight></Line>
+<Text>شروع مدیر</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.9000</X><Y>0.3000</Y></MoveTo><LineTo IX="2"><X>0.8657</X><Y>0.4148</Y></LineTo><LineTo IX="3"><X>0.7682</X><Y>0.5121</Y></LineTo><LineTo IX="4"><X>0.6222</X><Y>0.5772</Y></LineTo><LineTo IX="5"><X>0.4500</X><Y>0.6000</Y></LineTo><LineTo IX="6"><X>0.2778</X><Y>0.5772</Y></LineTo><LineTo IX="7"><X>0.1318</X><Y>0.5121</Y></LineTo><LineTo IX="8"><X>0.0343</X><Y>0.4148</Y></LineTo><LineTo IX="9"><X>0.0000</X><Y>0.3000</Y></LineTo><LineTo IX="10"><X>0.0343</X><Y>0.1852</Y></LineTo><LineTo IX="11"><X>0.1318</X><Y>0.0879</Y></LineTo><LineTo IX="12"><X>0.2778</X><Y>0.0228</Y></LineTo><LineTo IX="13"><X>0.4500</X><Y>0.0000</Y></LineTo><LineTo IX="14"><X>0.6222</X><Y>0.0228</Y></LineTo><LineTo IX="15"><X>0.7682</X><Y>0.0879</Y></LineTo><LineTo IX="16"><X>0.8657</X><Y>0.1852</Y></LineTo><LineTo IX="17"><X>0.9000</X><Y>0.3000</Y></LineTo></Geom>
+</Shape><Shape ID="52" Type="Shape" NameU="m_login" Name="m_login">
+<XForm><PinX>2.9000</PinX><PinY>9.2500</PinY><Width>1.4000</Width><Height>0.7000</Height><LocPinX>0.7000</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ورود مدیر</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.4000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.4000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="53" Type="Shape" NameU="m_action" Name="m_action">
+<XForm><PinX>4.6500</PinX><PinY>9.2000</PinY><Width>0.9000</Width><Height>0.9000</Height><LocPinX>0.4500</LocPinX><LocPinY>0.4500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFF3CD</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#856404</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>انتخاب&#10;عملیات</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.4500</X><Y>0.9000</Y></MoveTo><LineTo IX="2"><X>0.9000</X><Y>0.4500</Y></LineTo><LineTo IX="3"><X>0.4500</X><Y>0</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.4500</Y></LineTo><LineTo IX="5"><X>0.4500</X><Y>0.9000</Y></LineTo></Geom>
+</Shape><Shape ID="54" Type="Shape" NameU="m_direct" Name="m_direct">
+<XForm><PinX>6.7500</PinX><PinY>9.3000</PinY><Width>1.9000</Width><Height>0.8000</Height><LocPinX>0.9500</LocPinX><LocPinY>0.4000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ثبت/ویرایش/نسخه&#10;مستقیم سند</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.9000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.9000</X><Y>0.8000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.8000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="55" Type="Shape" NameU="m_review" Name="m_review">
+<XForm><PinX>6.7500</PinX><PinY>8.3500</PinY><Width>1.9000</Width><Height>0.7000</Height><LocPinX>0.9500</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>بررسی درخواست&#10;سرپرست</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.9000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.9000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="56" Type="Shape" NameU="m_decision" Name="m_decision">
+<XForm><PinX>8.7500</PinX><PinY>8.3300</PinY><Width>0.9000</Width><Height>0.9000</Height><LocPinX>0.4500</LocPinX><LocPinY>0.4500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFF3CD</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#856404</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>تأیید؟</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.4500</X><Y>0.9000</Y></MoveTo><LineTo IX="2"><X>0.9000</X><Y>0.4500</Y></LineTo><LineTo IX="3"><X>0.4500</X><Y>0</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.4500</Y></LineTo><LineTo IX="5"><X>0.4500</X><Y>0.9000</Y></LineTo></Geom>
+</Shape><Shape ID="57" Type="Shape" NameU="m_reject" Name="m_reject">
+<XForm><PinX>10.9500</PinX><PinY>8.2000</PinY><Width>1.7000</Width><Height>0.6000</Height><LocPinX>0.8500</LocPinX><LocPinY>0.3000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>رد همراه توضیح</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.7000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.7000</X><Y>0.6000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.6000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="58" Type="Shape" NameU="s_start" Name="s_start">
+<XForm><PinX>1.2750</PinX><PinY>6.9500</PinY><Width>0.9500</Width><Height>0.6000</Height><LocPinX>0.4750</LocPinX><LocPinY>0.3000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFFFFF</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0200</LineWeight></Line>
+<Text>شروع سرپرست</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.9500</X><Y>0.3000</Y></MoveTo><LineTo IX="2"><X>0.9138</X><Y>0.4148</Y></LineTo><LineTo IX="3"><X>0.8109</X><Y>0.5121</Y></LineTo><LineTo IX="4"><X>0.6568</X><Y>0.5772</Y></LineTo><LineTo IX="5"><X>0.4750</X><Y>0.6000</Y></LineTo><LineTo IX="6"><X>0.2932</X><Y>0.5772</Y></LineTo><LineTo IX="7"><X>0.1391</X><Y>0.5121</Y></LineTo><LineTo IX="8"><X>0.0362</X><Y>0.4148</Y></LineTo><LineTo IX="9"><X>0.0000</X><Y>0.3000</Y></LineTo><LineTo IX="10"><X>0.0362</X><Y>0.1852</Y></LineTo><LineTo IX="11"><X>0.1391</X><Y>0.0879</Y></LineTo><LineTo IX="12"><X>0.2932</X><Y>0.0228</Y></LineTo><LineTo IX="13"><X>0.4750</X><Y>0.0000</Y></LineTo><LineTo IX="14"><X>0.6568</X><Y>0.0228</Y></LineTo><LineTo IX="15"><X>0.8109</X><Y>0.0879</Y></LineTo><LineTo IX="16"><X>0.9138</X><Y>0.1852</Y></LineTo><LineTo IX="17"><X>0.9500</X><Y>0.3000</Y></LineTo></Geom>
+</Shape><Shape ID="59" Type="Shape" NameU="s_login" Name="s_login">
+<XForm><PinX>2.9000</PinX><PinY>6.9500</PinY><Width>1.4000</Width><Height>0.7000</Height><LocPinX>0.7000</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ورود سرپرست</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.4000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.4000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="60" Type="Shape" NameU="s_action" Name="s_action">
+<XForm><PinX>4.6500</PinX><PinY>6.9000</PinY><Width>0.9000</Width><Height>0.9000</Height><LocPinX>0.4500</LocPinX><LocPinY>0.4500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFF3CD</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#856404</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>انتخاب&#10;عملیات</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.4500</X><Y>0.9000</Y></MoveTo><LineTo IX="2"><X>0.9000</X><Y>0.4500</Y></LineTo><LineTo IX="3"><X>0.4500</X><Y>0</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.4500</Y></LineTo><LineTo IX="5"><X>0.4500</X><Y>0.9000</Y></LineTo></Geom>
+</Shape><Shape ID="61" Type="Shape" NameU="s_doc" Name="s_doc">
+<XForm><PinX>6.7500</PinX><PinY>7.0500</PinY><Width>1.9000</Width><Height>0.8000</Height><LocPinX>0.9500</LocPinX><LocPinY>0.4000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ثبت/ویرایش/نسخه&#10;سند رسمی</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.9000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.9000</X><Y>0.8000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.8000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="62" Type="Shape" NameU="s_msgcat" Name="s_msgcat">
+<XForm><PinX>6.7500</PinX><PinY>6.0000</PinY><Width>1.9000</Width><Height>0.8000</Height><LocPinX>0.9500</LocPinX><LocPinY>0.4000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ثبت پیام روزانه&#10;یا دسته‌بندی</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.9000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.9000</X><Y>0.8000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.8000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="63" Type="Shape" NameU="s_submit" Name="s_submit">
+<XForm><PinX>9.1500</PinX><PinY>7.0500</PinY><Width>1.7000</Width><Height>0.7000</Height><LocPinX>0.8500</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ارسال برای&#10;تأیید مدیر</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.7000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.7000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="64" Type="Shape" NameU="u_start" Name="u_start">
+<XForm><PinX>1.2500</PinX><PinY>4.6500</PinY><Width>0.9000</Width><Height>0.6000</Height><LocPinX>0.4500</LocPinX><LocPinY>0.3000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFFFFF</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0200</LineWeight></Line>
+<Text>شروع کاربر</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.9000</X><Y>0.3000</Y></MoveTo><LineTo IX="2"><X>0.8657</X><Y>0.4148</Y></LineTo><LineTo IX="3"><X>0.7682</X><Y>0.5121</Y></LineTo><LineTo IX="4"><X>0.6222</X><Y>0.5772</Y></LineTo><LineTo IX="5"><X>0.4500</X><Y>0.6000</Y></LineTo><LineTo IX="6"><X>0.2778</X><Y>0.5772</Y></LineTo><LineTo IX="7"><X>0.1318</X><Y>0.5121</Y></LineTo><LineTo IX="8"><X>0.0343</X><Y>0.4148</Y></LineTo><LineTo IX="9"><X>0.0000</X><Y>0.3000</Y></LineTo><LineTo IX="10"><X>0.0343</X><Y>0.1852</Y></LineTo><LineTo IX="11"><X>0.1318</X><Y>0.0879</Y></LineTo><LineTo IX="12"><X>0.2778</X><Y>0.0228</Y></LineTo><LineTo IX="13"><X>0.4500</X><Y>0.0000</Y></LineTo><LineTo IX="14"><X>0.6222</X><Y>0.0228</Y></LineTo><LineTo IX="15"><X>0.7682</X><Y>0.0879</Y></LineTo><LineTo IX="16"><X>0.8657</X><Y>0.1852</Y></LineTo><LineTo IX="17"><X>0.9000</X><Y>0.3000</Y></LineTo></Geom>
+</Shape><Shape ID="65" Type="Shape" NameU="u_login" Name="u_login">
+<XForm><PinX>2.9000</PinX><PinY>4.6500</PinY><Width>1.4000</Width><Height>0.7000</Height><LocPinX>0.7000</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ورود کاربر</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.4000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.4000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="66" Type="Shape" NameU="u_search" Name="u_search">
+<XForm><PinX>5.1000</PinX><PinY>4.6500</PinY><Width>1.8000</Width><Height>0.8000</Height><LocPinX>0.9000</LocPinX><LocPinY>0.4000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>جستجو و فیلتر&#10;پایگاه دانش</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.8000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.8000</X><Y>0.8000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.8000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="67" Type="Shape" NameU="u_view" Name="u_view">
+<XForm><PinX>7.6000</PinX><PinY>4.6500</PinY><Width>1.6000</Width><Height>0.7000</Height><LocPinX>0.8000</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>مشاهده سند&#10;یا پیام</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.6000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.6000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="68" Type="Shape" NameU="u_old" Name="u_old">
+<XForm><PinX>9.4500</PinX><PinY>4.6500</PinY><Width>0.9000</Width><Height>0.9000</Height><LocPinX>0.4500</LocPinX><LocPinY>0.4500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFF3CD</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#856404</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>سند&#10;قدیمی؟</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.4500</X><Y>0.9000</Y></MoveTo><LineTo IX="2"><X>0.9000</X><Y>0.4500</Y></LineTo><LineTo IX="3"><X>0.4500</X><Y>0</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.4500</Y></LineTo><LineTo IX="5"><X>0.4500</X><Y>0.9000</Y></LineTo></Geom>
+</Shape><Shape ID="69" Type="Shape" NameU="u_warn" Name="u_warn">
+<XForm><PinX>11.4500</PinX><PinY>5.0500</PinY><Width>1.7000</Width><Height>0.7000</Height><LocPinX>0.8500</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>نمایش هشدار&#10;سند قدیمی</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.7000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.7000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="70" Type="Shape" NameU="u_read" Name="u_read">
+<XForm><PinX>11.4500</PinX><PinY>4.1000</PinY><Width>1.7000</Width><Height>0.6000</Height><LocPinX>0.8500</LocPinX><LocPinY>0.3000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>مطالعه سند</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.7000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.7000</X><Y>0.6000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.6000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="71" Type="Shape" NameU="u_mark" Name="u_mark">
+<XForm><PinX>13.7500</PinX><PinY>4.3500</PinY><Width>1.7000</Width><Height>0.7000</Height><LocPinX>0.8500</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ثبت مطالعه شد</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.7000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.7000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="72" Type="Shape" NameU="u_end" Name="u_end">
+<XForm><PinX>16.2000</PinX><PinY>4.3500</PinY><Width>0.8000</Width><Height>0.6000</Height><LocPinX>0.4000</LocPinX><LocPinY>0.3000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#FFFFFF</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#333333</LineColor><LineWeight>0.0200</LineWeight></Line>
+<Text>پایان</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0.8000</X><Y>0.3000</Y></MoveTo><LineTo IX="2"><X>0.7696</X><Y>0.4148</Y></LineTo><LineTo IX="3"><X>0.6828</X><Y>0.5121</Y></LineTo><LineTo IX="4"><X>0.5531</X><Y>0.5772</Y></LineTo><LineTo IX="5"><X>0.4000</X><Y>0.6000</Y></LineTo><LineTo IX="6"><X>0.2469</X><Y>0.5772</Y></LineTo><LineTo IX="7"><X>0.1172</X><Y>0.5121</Y></LineTo><LineTo IX="8"><X>0.0304</X><Y>0.4148</Y></LineTo><LineTo IX="9"><X>0.0000</X><Y>0.3000</Y></LineTo><LineTo IX="10"><X>0.0304</X><Y>0.1852</Y></LineTo><LineTo IX="11"><X>0.1172</X><Y>0.0879</Y></LineTo><LineTo IX="12"><X>0.2469</X><Y>0.0228</Y></LineTo><LineTo IX="13"><X>0.4000</X><Y>0.0000</Y></LineTo><LineTo IX="14"><X>0.5531</X><Y>0.0228</Y></LineTo><LineTo IX="15"><X>0.6828</X><Y>0.0879</Y></LineTo><LineTo IX="16"><X>0.7696</X><Y>0.1852</Y></LineTo><LineTo IX="17"><X>0.8000</X><Y>0.3000</Y></LineTo></Geom>
+</Shape><Shape ID="73" Type="Shape" NameU="sys_auth" Name="sys_auth">
+<XForm><PinX>3.0500</PinX><PinY>2.4000</PinY><Width>1.7000</Width><Height>0.7000</Height><LocPinX>0.8500</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>احراز هویت&#10;و تشخیص نقش</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.7000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.7000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="74" Type="Shape" NameU="sys_validate" Name="sys_validate">
+<XForm><PinX>6.6500</PinX><PinY>2.5000</PinY><Width>1.7000</Width><Height>0.7000</Height><LocPinX>0.8500</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>اعتبارسنجی&#10;اطلاعات</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.7000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.7000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="75" Type="Shape" NameU="sys_pending" Name="sys_pending">
+<XForm><PinX>9.1500</PinX><PinY>2.5000</PinY><Width>1.7000</Width><Height>0.7000</Height><LocPinX>0.8500</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ثبت وضعیت&#10;در انتظار تأیید</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.7000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.7000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="76" Type="Shape" NameU="sys_publish" Name="sys_publish">
+<XForm><PinX>11.4500</PinX><PinY>2.6000</PinY><Width>2.1000</Width><Height>0.8000</Height><LocPinX>1.0500</LocPinX><LocPinY>0.4000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>انتشار سند / پیام&#10;یا اعمال ویرایش</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>2.1000</X><Y>0</Y></LineTo><LineTo IX="3"><X>2.1000</X><Y>0.8000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.8000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="77" Type="Shape" NameU="sys_archive" Name="sys_archive">
+<XForm><PinX>13.9500</PinX><PinY>2.6000</PinY><Width>2.1000</Width><Height>0.8000</Height><LocPinX>1.0500</LocPinX><LocPinY>0.4000</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>آرشیو نسخه قبلی&#10;در صورت نسخه جدید</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>2.1000</X><Y>0</Y></LineTo><LineTo IX="3"><X>2.1000</X><Y>0.8000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.8000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="78" Type="Shape" NameU="sys_log" Name="sys_log">
+<XForm><PinX>16.2500</PinX><PinY>2.5500</PinY><Width>1.9000</Width><Height>0.7000</Height><LocPinX>0.9500</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ثبت لاگ عملیات&#10;و مطالعه</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.9000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.9000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="79" Type="Shape" NameU="sys_api" Name="sys_api">
+<XForm><PinX>8.5500</PinX><PinY>1.2500</PinY><Width>1.9000</Width><Height>0.7000</Height><LocPinX>0.9500</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>پردازش درخواست API</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.9000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.9000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape><Shape ID="80" Type="Shape" NameU="sys_response" Name="sys_response">
+<XForm><PinX>13.2000</PinX><PinY>1.2500</PinY><Width>1.8000</Width><Height>0.7000</Height><LocPinX>0.9000</LocPinX><LocPinY>0.3500</LocPinY><Angle>0</Angle></XForm>
+<Fill><FillForegnd>#F6F8FA</FillForegnd><FillPattern>1</FillPattern></Fill>
+<Line><LineColor>#555555</LineColor><LineWeight>0.0139</LineWeight></Line>
+<Text>ارسال پاسخ API</Text>
+<Geom IX="0"><MoveTo IX="1"><X>0</X><Y>0</Y></MoveTo><LineTo IX="2"><X>1.8000</X><Y>0</Y></LineTo><LineTo IX="3"><X>1.8000</X><Y>0.7000</Y></LineTo><LineTo IX="4"><X>0</X><Y>0.7000</Y></LineTo><LineTo IX="5"><X>0</X><Y>0</Y></LineTo></Geom>
+</Shape>
+</Shapes>
+</Page>
+</Pages>
+</VisioDocument>

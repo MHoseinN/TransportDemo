@@ -1,0 +1,349 @@
+openapi: 3.0.3
+info:
+  title: Knowledge Base API
+  version: 1.0.0
+  description: API contract for Knowledge Base MVP.
+servers:
+  - url: /api/v1
+security:
+  - bearerAuth: []
+paths:
+  /categories/deputies:
+    get:
+      summary: List deputies
+      tags: [Categories]
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Create deputy
+      tags: [Categories]
+      security: [{ bearerAuth: [] }]
+      responses:
+        '201': { description: Created }
+  /categories/departments:
+    get:
+      summary: List departments
+      tags: [Categories]
+      parameters:
+        - in: query
+          name: deputyId
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Create department
+      tags: [Categories]
+      responses:
+        '201': { description: Created }
+  /categories/topics:
+    get:
+      summary: List topics
+      tags: [Categories]
+      parameters:
+        - in: query
+          name: departmentId
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Create topic
+      tags: [Categories]
+      responses:
+        '201': { description: Created }
+  /categories/subtopics:
+    get:
+      summary: List subtopics
+      tags: [Categories]
+      parameters:
+        - in: query
+          name: topicId
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Create subtopic
+      tags: [Categories]
+      responses:
+        '201': { description: Created }
+
+  /knowledge:
+    get:
+      summary: Search/list knowledge documents
+      tags: [Knowledge]
+      parameters:
+        - in: query
+          name: q
+          schema: { type: string }
+        - in: query
+          name: documentType
+          schema: { $ref: '#/components/schemas/DocumentType' }
+        - in: query
+          name: deputyId
+          schema: { type: string, format: uuid }
+        - in: query
+          name: departmentId
+          schema: { type: string, format: uuid }
+        - in: query
+          name: topicId
+          schema: { type: string, format: uuid }
+        - in: query
+          name: subTopicId
+          schema: { type: string, format: uuid }
+        - in: query
+          name: status
+          schema: { $ref: '#/components/schemas/KnowledgeStatus' }
+        - in: query
+          name: includeArchived
+          schema: { type: boolean, default: true }
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create official document
+      description: Manager publishes directly. Supervisor submits for approval.
+      tags: [Knowledge]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateKnowledgeRequest' }
+      responses:
+        '201': { description: Created }
+
+  /knowledge/{id}:
+    get:
+      summary: Get knowledge item detail
+      tags: [Knowledge]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+        '404': { description: Not Found }
+
+  /knowledge/{id}/edit:
+    post:
+      summary: Edit document
+      description: Manager applies directly. Supervisor creates edit request.
+      tags: [Knowledge]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/EditKnowledgeRequest' }
+      responses:
+        '200': { description: OK }
+
+  /knowledge/{id}/versions:
+    post:
+      summary: Add new official version
+      tags: [Knowledge]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AddVersionRequest' }
+      responses:
+        '201': { description: Created }
+
+  /knowledge/{id}/read:
+    post:
+      summary: Mark knowledge version as read
+      tags: [ReadLogs]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                versionId: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+
+  /approvals/pending:
+    get:
+      summary: List pending approval requests
+      tags: [Approvals]
+      responses:
+        '200': { description: OK }
+  /approvals/{requestId}/approve:
+    post:
+      summary: Approve pending request
+      tags: [Approvals]
+      parameters:
+        - in: path
+          name: requestId
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: Approved }
+  /approvals/{requestId}/reject:
+    post:
+      summary: Reject pending request with reason
+      tags: [Approvals]
+      parameters:
+        - in: path
+          name: requestId
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reason]
+              properties:
+                reason: { type: string }
+      responses:
+        '200': { description: Rejected }
+
+  /daily-messages:
+    get:
+      summary: List daily messages
+      tags: [DailyMessages]
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Create and publish daily message
+      tags: [DailyMessages]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateDailyMessageRequest' }
+      responses:
+        '201': { description: Created }
+
+  /external/knowledge/search:
+    get:
+      summary: External app search knowledge
+      tags: [External]
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - in: query
+          name: q
+          schema: { type: string }
+        - in: query
+          name: topicId
+          schema: { type: string, format: uuid }
+        - in: query
+          name: subTopicId
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+  /external/knowledge/{id}:
+    get:
+      summary: External app get knowledge detail
+      tags: [External]
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+  /external/knowledge/{id}/read:
+    post:
+      summary: External app mark document as read
+      tags: [External]
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  schemas:
+    DocumentType:
+      type: string
+      enum: [Regulation, Circular, Procedure]
+    KnowledgeStatus:
+      type: string
+      enum: [Draft, PendingApproval, Published, Rejected, Archived]
+    CreateKnowledgeRequest:
+      type: object
+      required: [title, documentType, bodyHtml, issueDate, categoryMappings]
+      properties:
+        title: { type: string }
+        documentType: { $ref: '#/components/schemas/DocumentType' }
+        summary: { type: string }
+        bodyHtml: { type: string }
+        issueDate: { type: string, format: date }
+        validUntil: { type: string, format: date, nullable: true }
+        keywords:
+          type: array
+          items: { type: string }
+        categoryMappings:
+          type: array
+          items:
+            type: object
+            required: [deputyId, departmentId, topicId]
+            properties:
+              deputyId: { type: string, format: uuid }
+              departmentId: { type: string, format: uuid }
+              topicId: { type: string, format: uuid }
+              subTopicId: { type: string, format: uuid, nullable: true }
+    EditKnowledgeRequest:
+      type: object
+      properties:
+        title: { type: string }
+        summary: { type: string }
+        bodyHtml: { type: string }
+        issueDate: { type: string, format: date }
+        validUntil: { type: string, format: date, nullable: true }
+        keywords:
+          type: array
+          items: { type: string }
+    AddVersionRequest:
+      type: object
+      required: [title, bodyHtml, changeSummary, issueDate]
+      properties:
+        title: { type: string }
+        summary: { type: string }
+        bodyHtml: { type: string }
+        changeSummary: { type: string }
+        issueDate: { type: string, format: date }
+        validUntil: { type: string, format: date, nullable: true }
+        keywords:
+          type: array
+          items: { type: string }
+    CreateDailyMessageRequest:
+      type: object
+      required: [title, bodyHtml]
+      properties:
+        title: { type: string }
+        bodyHtml: { type: string }

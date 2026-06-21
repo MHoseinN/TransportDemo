@@ -1,0 +1,397 @@
+{
+  "project": "Knowledge Base MVP",
+  "method": "Kanban",
+  "columns": [
+    "Backlog",
+    "Ready for Analysis",
+    "Analysis Done",
+    "Ready for Development",
+    "In Development",
+    "Code Review",
+    "Ready for Test",
+    "Testing",
+    "Bug Fix",
+    "Ready for UAT",
+    "Done"
+  ],
+  "epics": [
+    {
+      "id": "EP-01",
+      "title": "Foundation & Access Control",
+      "tasks": [
+        {
+          "id": "KB-001",
+          "title": "Create backend project structure",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-002",
+          "title": "Create frontend project structure",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-003",
+          "title": "Define roles: Manager, Supervisor, Operator",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-004",
+          "title": "Authentication and current user API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-005",
+          "title": "Frontend route guards and permission handling",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-006",
+          "title": "General audit log infrastructure",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-007",
+          "title": "Main frontend layout and navigation",
+          "team": "Frontend",
+          "priority": "Must"
+        }
+      ]
+    },
+    {
+      "id": "EP-02",
+      "title": "Category Management",
+      "tasks": [
+        {
+          "id": "KB-010",
+          "title": "Deputy data model",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-011",
+          "title": "Department data model",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-012",
+          "title": "Topic data model",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-013",
+          "title": "SubTopic data model",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-014",
+          "title": "Deputy CRUD API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-015",
+          "title": "Department CRUD API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-016",
+          "title": "Topic CRUD API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-017",
+          "title": "SubTopic CRUD API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-018",
+          "title": "Deputy management page",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-019",
+          "title": "Department management page",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-020",
+          "title": "Topic management page",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-021",
+          "title": "SubTopic management page",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-022",
+          "title": "Soft disable instead of physical delete",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-023",
+          "title": "Category tree view",
+          "team": "Frontend",
+          "priority": "Should"
+        }
+      ]
+    },
+    {
+      "id": "EP-03",
+      "title": "Official Document Management",
+      "tasks": [
+        {
+          "id": "KB-030",
+          "title": "KnowledgeItem data model",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-031",
+          "title": "KnowledgeVersion data model",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-032",
+          "title": "KnowledgeAttachment data model",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-033",
+          "title": "Knowledge-to-category mapping model",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-034",
+          "title": "Create and publish document by Manager API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-035",
+          "title": "Create document by Supervisor API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-036",
+          "title": "File attachment upload API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-037",
+          "title": "Get document detail API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-038",
+          "title": "Create document page",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-039",
+          "title": "Rich Text Editor integration",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-040",
+          "title": "RTL/LTR support in editor",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-041",
+          "title": "Organization fonts and font-size support",
+          "team": "Frontend",
+          "priority": "Should"
+        },
+        {
+          "id": "KB-042",
+          "title": "Attachment upload component",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-043",
+          "title": "Document detail page",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-044",
+          "title": "Required field validation",
+          "team": "Backend + Frontend",
+          "priority": "Must"
+        }
+      ]
+    },
+    {
+      "id": "EP-04",
+      "title": "Approval Workflow",
+      "tasks": [
+        {
+          "id": "KB-050",
+          "title": "Document status model",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-051",
+          "title": "ApprovalLog data model",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-052",
+          "title": "Pending approvals API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-053",
+          "title": "Approve request API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-054",
+          "title": "Reject request with reason API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-055",
+          "title": "Manager approval inbox page",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-056",
+          "title": "Approval review page",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-057",
+          "title": "Rejection reason display for Supervisor",
+          "team": "Frontend",
+          "priority": "Should"
+        },
+        {
+          "id": "KB-058",
+          "title": "Hide unapproved content from users",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-059",
+          "title": "Approval notification badge",
+          "team": "Backend + Frontend",
+          "priority": "Should"
+        }
+      ]
+    },
+    {
+      "id": "EP-05",
+      "title": "Edit & Versioning",
+      "tasks": [
+        {
+          "id": "KB-060",
+          "title": "Direct document edit by Manager API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-061",
+          "title": "Supervisor edit request API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-062",
+          "title": "EditRequest data model",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-063",
+          "title": "Document edit page",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-064",
+          "title": "Keep current version visible until edit approval",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-065",
+          "title": "Add new version by Manager API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-066",
+          "title": "Add new version by Supervisor API",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-067",
+          "title": "Add new version page",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-068",
+          "title": "Change summary field for new version",
+          "team": "Backend + Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-069",
+          "title": "Auto-archive previous version after publishing new version",
+          "team": "Backend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-070",
+          "title": "Version history display",
+          "team": "Frontend",
+          "priority": "Must"
+        },
+        {
+          "id": "KB-071",
+          "title": "Old/archive document warning",
+          "team": "Frontend",
+          "priority": "Must"
+        }
+      ]
+    }
+  ]
+}

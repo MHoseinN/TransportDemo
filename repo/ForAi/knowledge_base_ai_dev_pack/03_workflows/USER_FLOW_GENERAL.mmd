@@ -1,0 +1,95 @@
+flowchart TD
+    Start([ورود کاربر به سامانه]) --> Auth[احراز هویت و ورود]
+    Auth --> RoleCheck{تشخیص نقش کاربر}
+
+    RoleCheck -->|مدیر| AdminDashboard[داشبورد مدیر]
+    RoleCheck -->|سرپرست| SupervisorDashboard[داشبورد سرپرست]
+    RoleCheck -->|اپراتور / کاربر| UserDashboard[داشبورد کاربر]
+    RoleCheck -->|نرم‌افزار اصلی| ExternalApp[درخواست از نرم‌افزار اصلی از طریق API]
+
+    AdminDashboard --> AdminActions{انتخاب عملیات مدیر}
+    AdminActions --> ManageDocsAdmin[مدیریت اسناد رسمی]
+    AdminActions --> Approvals[بررسی درخواست‌های تأیید]
+    AdminActions --> ManageMessagesAdmin[مدیریت پیام‌های روزانه]
+    AdminActions --> ManageCategoriesAdmin[مدیریت دسته‌بندی‌ها]
+    AdminActions --> SearchAdmin[جستجو و مشاهده پایگاه دانش]
+    AdminActions --> ReportsAdmin[گزارش‌ها و لاگ‌ها]
+
+    ManageDocsAdmin --> AdminDocAction{نوع عملیات سند}
+    AdminDocAction --> CreateDocAdmin[ثبت سند جدید]
+    AdminDocAction --> EditDocAdmin[ویرایش سند]
+    AdminDocAction --> AddVersionAdmin[افزودن نسخه جدید]
+    AdminDocAction --> ArchiveDocAdmin[آرشیو سند]
+
+    CreateDocAdmin --> PublishDirect[انتشار مستقیم]
+    EditDocAdmin --> PublishDirect
+    AddVersionAdmin --> PublishDirect
+    ArchiveDocAdmin --> ArchiveStatus[ثبت وضعیت آرشیوی]
+
+    Approvals --> ReviewRequest[بررسی سند / ویرایش / نسخه جدید]
+    ReviewRequest --> ApprovalDecision{تأیید شود؟}
+    ApprovalDecision -->|بله| PublishApproved[انتشار تغییرات تأییدشده]
+    ApprovalDecision -->|خیر| RejectRequest[رد درخواست همراه توضیح]
+
+    ManageMessagesAdmin --> PublishMessage[ثبت و انتشار پیام روزانه]
+    ManageCategoriesAdmin --> SaveCategories[ثبت یا ویرایش معاونت، بخش، موضوع، زیرموضوع]
+
+    SupervisorDashboard --> SupervisorActions{انتخاب عملیات سرپرست}
+    SupervisorActions --> ManageDocsSupervisor[مدیریت اسناد رسمی]
+    SupervisorActions --> ManageMessagesSupervisor[مدیریت پیام‌های روزانه]
+    SupervisorActions --> ManageCategoriesSupervisor[مدیریت دسته‌بندی‌ها]
+    SupervisorActions --> SearchSupervisor[جستجو و مشاهده پایگاه دانش]
+
+    ManageDocsSupervisor --> SupervisorDocAction{نوع عملیات سند}
+    SupervisorDocAction --> CreateDocSupervisor[ثبت سند جدید]
+    SupervisorDocAction --> EditDocSupervisor[ویرایش سند]
+    SupervisorDocAction --> AddVersionSupervisor[افزودن نسخه جدید]
+
+    CreateDocSupervisor --> SendApproval[ارسال برای تأیید مدیر]
+    EditDocSupervisor --> SendApproval
+    AddVersionSupervisor --> SendApproval
+    SendApproval --> PendingApproval[وضعیت: در انتظار تأیید]
+
+    ManageMessagesSupervisor --> PublishMessage
+    ManageCategoriesSupervisor --> SaveCategories
+
+    UserDashboard --> UserActions{انتخاب عملیات کاربر}
+    UserActions --> SearchKnowledge[جستجو در پایگاه دانش]
+    UserActions --> ViewRecent[مشاهده آخرین اسناد و پیام‌ها]
+    UserActions --> ViewMessages[مشاهده پیام‌های روزانه]
+
+    SearchKnowledge --> FilterKnowledge[فیلتر بر اساس معاونت، بخش، موضوع، زیرموضوع و نوع سند]
+    ViewRecent --> KnowledgeList[نمایش لیست محتواها]
+    FilterKnowledge --> KnowledgeList
+    ViewMessages --> KnowledgeList
+
+    KnowledgeList --> SelectKnowledge[انتخاب سند یا پیام]
+    SelectKnowledge --> CheckOld{سند قدیمی است؟}
+    CheckOld -->|بله| ShowOldWarning[نمایش هشدار سند قدیمی]
+    CheckOld -->|خیر| ViewKnowledge[نمایش محتوای سند]
+    ShowOldWarning --> ViewKnowledge
+    ViewKnowledge --> MarkAsRead{مطالعه شد؟}
+    MarkAsRead -->|بله| SaveReadLog[ثبت لاگ مطالعه]
+    MarkAsRead -->|خیر| EndUser([پایان مشاهده])
+    SaveReadLog --> EndUser
+
+    ExternalApp --> ApiAction{نوع درخواست API}
+    ApiAction --> ApiSearch[جستجوی سند]
+    ApiAction --> ApiGetDetail[دریافت جزئیات سند]
+    ApiAction --> ApiGetRelated[دریافت اسناد مرتبط با موضوع]
+    ApiAction --> ApiMarkRead[ثبت مطالعه شد از سمت نرم‌افزار اصلی]
+    ApiSearch --> ApiResponse[ارسال پاسخ به نرم‌افزار اصلی]
+    ApiGetDetail --> ApiResponse
+    ApiGetRelated --> ApiResponse
+    ApiMarkRead --> SaveReadLog
+
+    PublishDirect --> SaveOperationLog[ثبت لاگ عملیات]
+    PublishApproved --> SaveOperationLog
+    RejectRequest --> SaveOperationLog
+    ArchiveStatus --> SaveOperationLog
+    PublishMessage --> SaveOperationLog
+    SaveCategories --> SaveOperationLog
+    PendingApproval --> SaveOperationLog
+    SaveOperationLog --> NotifyUsers[نمایش یا ارسال اعلان مرتبط]
+    NotifyUsers --> End([پایان فرآیند])
+    ApiResponse --> End

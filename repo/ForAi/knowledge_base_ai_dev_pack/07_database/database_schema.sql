@@ -1,0 +1,193 @@
+-- Knowledge Base MVP conceptual SQL schema
+-- This schema is intentionally generic and should be adapted to the final stack.
+
+CREATE TABLE Users (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    FullName NVARCHAR(200) NOT NULL,
+    Username NVARCHAR(100) NOT NULL UNIQUE,
+    Role NVARCHAR(50) NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    UpdatedAt DATETIME2 NULL
+);
+
+CREATE TABLE Deputies (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    Title NVARCHAR(200) NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    UpdatedAt DATETIME2 NULL
+);
+
+CREATE TABLE Departments (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    DeputyId UNIQUEIDENTIFIER NOT NULL,
+    Title NVARCHAR(200) NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    UpdatedAt DATETIME2 NULL,
+    CONSTRAINT FK_Departments_Deputies FOREIGN KEY (DeputyId) REFERENCES Deputies(Id)
+);
+
+CREATE TABLE Topics (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    DepartmentId UNIQUEIDENTIFIER NOT NULL,
+    Title NVARCHAR(200) NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    UpdatedAt DATETIME2 NULL,
+    CONSTRAINT FK_Topics_Departments FOREIGN KEY (DepartmentId) REFERENCES Departments(Id)
+);
+
+CREATE TABLE SubTopics (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    TopicId UNIQUEIDENTIFIER NOT NULL,
+    Title NVARCHAR(200) NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    UpdatedAt DATETIME2 NULL,
+    CONSTRAINT FK_SubTopics_Topics FOREIGN KEY (TopicId) REFERENCES Topics(Id)
+);
+
+CREATE TABLE KnowledgeItems (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    Title NVARCHAR(300) NOT NULL,
+    DocumentType NVARCHAR(50) NOT NULL,
+    CurrentVersionId UNIQUEIDENTIFIER NULL,
+    CreatedByUserId UNIQUEIDENTIFIER NOT NULL,
+    IsArchived BIT NOT NULL DEFAULT 0,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    UpdatedAt DATETIME2 NULL,
+    CONSTRAINT FK_KnowledgeItems_Users FOREIGN KEY (CreatedByUserId) REFERENCES Users(Id)
+);
+
+CREATE TABLE KnowledgeVersions (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    KnowledgeItemId UNIQUEIDENTIFIER NOT NULL,
+    VersionNumber INT NOT NULL,
+    Title NVARCHAR(300) NOT NULL,
+    Summary NVARCHAR(MAX) NULL,
+    BodyHtml NVARCHAR(MAX) NOT NULL,
+    ChangeSummary NVARCHAR(MAX) NULL,
+    IssueDate DATE NOT NULL,
+    PublishDate DATETIME2 NULL,
+    ValidUntil DATE NULL,
+    Status NVARCHAR(50) NOT NULL,
+    IsCurrent BIT NOT NULL DEFAULT 0,
+    CreatedByUserId UNIQUEIDENTIFIER NOT NULL,
+    ApprovedByUserId UNIQUEIDENTIFIER NULL,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    UpdatedAt DATETIME2 NULL,
+    ApprovedAt DATETIME2 NULL,
+    CONSTRAINT FK_KnowledgeVersions_Items FOREIGN KEY (KnowledgeItemId) REFERENCES KnowledgeItems(Id),
+    CONSTRAINT FK_KnowledgeVersions_CreatedBy FOREIGN KEY (CreatedByUserId) REFERENCES Users(Id),
+    CONSTRAINT FK_KnowledgeVersions_ApprovedBy FOREIGN KEY (ApprovedByUserId) REFERENCES Users(Id)
+);
+
+ALTER TABLE KnowledgeItems ADD CONSTRAINT FK_KnowledgeItems_CurrentVersion
+FOREIGN KEY (CurrentVersionId) REFERENCES KnowledgeVersions(Id);
+
+CREATE TABLE KnowledgeAttachments (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    KnowledgeVersionId UNIQUEIDENTIFIER NOT NULL,
+    FileName NVARCHAR(300) NOT NULL,
+    FilePath NVARCHAR(1000) NOT NULL,
+    ContentType NVARCHAR(100) NOT NULL,
+    FileSize BIGINT NOT NULL,
+    UploadedByUserId UNIQUEIDENTIFIER NOT NULL,
+    UploadedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    CONSTRAINT FK_KnowledgeAttachments_Versions FOREIGN KEY (KnowledgeVersionId) REFERENCES KnowledgeVersions(Id),
+    CONSTRAINT FK_KnowledgeAttachments_Users FOREIGN KEY (UploadedByUserId) REFERENCES Users(Id)
+);
+
+CREATE TABLE KnowledgeCategoryMappings (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    KnowledgeVersionId UNIQUEIDENTIFIER NOT NULL,
+    DeputyId UNIQUEIDENTIFIER NOT NULL,
+    DepartmentId UNIQUEIDENTIFIER NOT NULL,
+    TopicId UNIQUEIDENTIFIER NOT NULL,
+    SubTopicId UNIQUEIDENTIFIER NULL,
+    CONSTRAINT FK_KCM_Versions FOREIGN KEY (KnowledgeVersionId) REFERENCES KnowledgeVersions(Id),
+    CONSTRAINT FK_KCM_Deputies FOREIGN KEY (DeputyId) REFERENCES Deputies(Id),
+    CONSTRAINT FK_KCM_Departments FOREIGN KEY (DepartmentId) REFERENCES Departments(Id),
+    CONSTRAINT FK_KCM_Topics FOREIGN KEY (TopicId) REFERENCES Topics(Id),
+    CONSTRAINT FK_KCM_SubTopics FOREIGN KEY (SubTopicId) REFERENCES SubTopics(Id)
+);
+
+CREATE TABLE KnowledgeTags (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    KnowledgeVersionId UNIQUEIDENTIFIER NOT NULL,
+    TagText NVARCHAR(100) NOT NULL,
+    CONSTRAINT FK_KnowledgeTags_Versions FOREIGN KEY (KnowledgeVersionId) REFERENCES KnowledgeVersions(Id)
+);
+
+CREATE TABLE EditRequests (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    KnowledgeVersionId UNIQUEIDENTIFIER NOT NULL,
+    RequestedByUserId UNIQUEIDENTIFIER NOT NULL,
+    ProposedTitle NVARCHAR(300) NULL,
+    ProposedSummary NVARCHAR(MAX) NULL,
+    ProposedBodyHtml NVARCHAR(MAX) NULL,
+    ProposedIssueDate DATE NULL,
+    ProposedValidUntil DATE NULL,
+    Status NVARCHAR(50) NOT NULL,
+    RejectionReason NVARCHAR(MAX) NULL,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    ReviewedByUserId UNIQUEIDENTIFIER NULL,
+    ReviewedAt DATETIME2 NULL,
+    CONSTRAINT FK_EditRequests_Versions FOREIGN KEY (KnowledgeVersionId) REFERENCES KnowledgeVersions(Id),
+    CONSTRAINT FK_EditRequests_RequestedBy FOREIGN KEY (RequestedByUserId) REFERENCES Users(Id),
+    CONSTRAINT FK_EditRequests_ReviewedBy FOREIGN KEY (ReviewedByUserId) REFERENCES Users(Id)
+);
+
+CREATE TABLE ApprovalLogs (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    EntityType NVARCHAR(50) NOT NULL,
+    EntityId UNIQUEIDENTIFIER NOT NULL,
+    Action NVARCHAR(50) NOT NULL,
+    ActorUserId UNIQUEIDENTIFIER NOT NULL,
+    Reason NVARCHAR(MAX) NULL,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    CONSTRAINT FK_ApprovalLogs_Users FOREIGN KEY (ActorUserId) REFERENCES Users(Id)
+);
+
+CREATE TABLE KnowledgeReadLogs (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    UserId UNIQUEIDENTIFIER NOT NULL,
+    KnowledgeItemId UNIQUEIDENTIFIER NOT NULL,
+    KnowledgeVersionId UNIQUEIDENTIFIER NOT NULL,
+    Source NVARCHAR(50) NOT NULL DEFAULT 'Web',
+    ReadAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    CONSTRAINT FK_ReadLogs_Users FOREIGN KEY (UserId) REFERENCES Users(Id),
+    CONSTRAINT FK_ReadLogs_Items FOREIGN KEY (KnowledgeItemId) REFERENCES KnowledgeItems(Id),
+    CONSTRAINT FK_ReadLogs_Versions FOREIGN KEY (KnowledgeVersionId) REFERENCES KnowledgeVersions(Id)
+);
+
+CREATE TABLE DailyMessages (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    Title NVARCHAR(300) NOT NULL,
+    BodyHtml NVARCHAR(MAX) NOT NULL,
+    CreatedByUserId UNIQUEIDENTIFIER NOT NULL,
+    SentAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    Status NVARCHAR(50) NOT NULL DEFAULT 'Published',
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    UpdatedAt DATETIME2 NULL,
+    CONSTRAINT FK_DailyMessages_Users FOREIGN KEY (CreatedByUserId) REFERENCES Users(Id)
+);
+
+CREATE TABLE AuditLogs (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    ActorUserId UNIQUEIDENTIFIER NULL,
+    Action NVARCHAR(100) NOT NULL,
+    EntityType NVARCHAR(100) NOT NULL,
+    EntityId UNIQUEIDENTIFIER NULL,
+    BeforeJson NVARCHAR(MAX) NULL,
+    AfterJson NVARCHAR(MAX) NULL,
+    CorrelationId NVARCHAR(100) NULL,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+);
+
+CREATE INDEX IX_KnowledgeVersions_Status ON KnowledgeVersions(Status);
+CREATE INDEX IX_KnowledgeVersions_IsCurrent ON KnowledgeVersions(IsCurrent);
+CREATE INDEX IX_KnowledgeTags_TagText ON KnowledgeTags(TagText);
+CREATE INDEX IX_KCM_Topic ON KnowledgeCategoryMappings(TopicId, SubTopicId);

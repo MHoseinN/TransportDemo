@@ -1,0 +1,143 @@
+flowchart LR
+
+subgraph EXT_POOL["Pool: نرم‌افزار اصلی / سیستم خارجی"]
+    EXT_Start((Start))
+    EXT_Request[ارسال درخواست به پایگاه دانش]
+    EXT_Receive[دریافت پاسخ از پایگاه دانش]
+    EXT_End((End))
+    EXT_Start --> EXT_Request
+    EXT_Receive --> EXT_End
+end
+
+subgraph KB_POOL["Pool: سامانه پایگاه دانش"]
+    subgraph LANE_USER["Lane: اپراتور / کاربر"]
+        U_Start((Start))
+        U_Login[ورود به سامانه]
+        U_Search[جستجو و فیلتر در پایگاه دانش]
+        U_View[مشاهده سند / پیام]
+        U_OldCheck{سند قدیمی است؟}
+        U_Warning[نمایش هشدار سند قدیمی]
+        U_Read[مطالعه سند]
+        U_MarkRead[ثبت مطالعه شد]
+        U_End((End))
+    end
+
+    subgraph LANE_SUP["Lane: سرپرست"]
+        S_Start((Start))
+        S_Login[ورود سرپرست]
+        S_Action{انتخاب عملیات}
+        S_CreateDoc[ثبت سند رسمی]
+        S_EditDoc[ویرایش سند]
+        S_NewVersion[افزودن نسخه جدید]
+        S_Message[ثبت پیام روزانه]
+        S_Category[مدیریت دسته‌بندی‌ها]
+        S_SubmitApproval[ارسال برای تأیید مدیر]
+        S_End((End))
+    end
+
+    subgraph LANE_MANAGER["Lane: مدیر / ادمین ارشد"]
+        M_Start((Start))
+        M_Login[ورود مدیر]
+        M_Action{انتخاب عملیات}
+        M_CreateDoc[ثبت مستقیم سند رسمی]
+        M_EditDoc[ویرایش مستقیم سند]
+        M_NewVersion[افزودن نسخه جدید]
+        M_Review[بررسی درخواست‌های سرپرست]
+        M_Decision{تأیید می‌شود؟}
+        M_Approve[تأیید درخواست]
+        M_Reject[رد درخواست همراه توضیح]
+        M_Message[ثبت پیام روزانه]
+        M_Category[مدیریت دسته‌بندی‌ها]
+        M_End((End))
+    end
+
+    subgraph LANE_SYSTEM["Lane: سیستم پایگاه دانش"]
+        SYS_Auth[احراز هویت و تشخیص نقش]
+        SYS_Validate[اعتبارسنجی اطلاعات]
+        SYS_Pending[ثبت وضعیت در انتظار تأیید]
+        SYS_Publish[انتشار سند]
+        SYS_ApplyEdit[اعمال ویرایش]
+        SYS_AddVersion[ثبت نسخه جدید]
+        SYS_ArchiveOld[قدیمی / آرشیوی کردن نسخه قبلی]
+        SYS_PublishMessage[انتشار پیام روزانه]
+        SYS_SaveCategory[ذخیره دسته‌بندی]
+        SYS_Search[پردازش جستجو و فیلتر]
+        SYS_ShowDoc[نمایش سند]
+        SYS_SaveReadLog[ثبت لاگ مطالعه]
+        SYS_SaveOperationLog[ثبت لاگ عملیات]
+        SYS_Notify[نمایش اعلان / اطلاع‌رسانی]
+        SYS_API[پردازش درخواست API]
+        SYS_Response[ارسال پاسخ API]
+        SYS_End((End))
+    end
+end
+
+U_Start --> U_Login
+U_Login --> SYS_Auth
+SYS_Auth --> U_Search
+U_Search --> SYS_Search
+SYS_Search --> U_View
+U_View --> SYS_ShowDoc
+SYS_ShowDoc --> U_OldCheck
+U_OldCheck -->|بله| U_Warning
+U_OldCheck -->|خیر| U_Read
+U_Warning --> U_Read
+U_Read --> U_MarkRead
+U_MarkRead --> SYS_SaveReadLog
+SYS_SaveReadLog --> U_End
+
+S_Start --> S_Login
+S_Login --> SYS_Auth
+SYS_Auth --> S_Action
+S_Action -->|ثبت سند| S_CreateDoc
+S_Action -->|ویرایش سند| S_EditDoc
+S_Action -->|نسخه جدید| S_NewVersion
+S_Action -->|پیام روزانه| S_Message
+S_Action -->|دسته‌بندی| S_Category
+S_CreateDoc --> SYS_Validate
+S_EditDoc --> SYS_Validate
+S_NewVersion --> SYS_Validate
+SYS_Validate --> S_SubmitApproval
+S_SubmitApproval --> SYS_Pending
+SYS_Pending --> SYS_SaveOperationLog
+SYS_SaveOperationLog --> SYS_Notify
+SYS_Notify --> M_Review
+S_Message --> SYS_PublishMessage
+SYS_PublishMessage --> SYS_SaveOperationLog
+S_Category --> SYS_SaveCategory
+SYS_SaveCategory --> SYS_SaveOperationLog
+SYS_SaveOperationLog --> S_End
+
+M_Start --> M_Login
+M_Login --> SYS_Auth
+SYS_Auth --> M_Action
+M_Action -->|ثبت سند| M_CreateDoc
+M_Action -->|ویرایش سند| M_EditDoc
+M_Action -->|نسخه جدید| M_NewVersion
+M_Action -->|بررسی درخواست‌ها| M_Review
+M_Action -->|پیام روزانه| M_Message
+M_Action -->|دسته‌بندی| M_Category
+M_CreateDoc --> SYS_Validate
+M_EditDoc --> SYS_Validate
+M_NewVersion --> SYS_Validate
+SYS_Validate --> SYS_Publish
+M_Review --> M_Decision
+M_Decision -->|بله| M_Approve
+M_Decision -->|خیر| M_Reject
+M_Approve --> SYS_Publish
+M_Reject --> SYS_SaveOperationLog
+SYS_Publish --> SYS_ApplyEdit
+SYS_ApplyEdit --> SYS_AddVersion
+SYS_AddVersion --> SYS_ArchiveOld
+SYS_ArchiveOld --> SYS_SaveOperationLog
+M_Message --> SYS_PublishMessage
+M_Category --> SYS_SaveCategory
+SYS_SaveOperationLog --> SYS_Notify
+SYS_Notify --> M_End
+
+EXT_Request -.-> SYS_API
+SYS_API --> SYS_Search
+SYS_Search --> SYS_Response
+SYS_Response -.-> EXT_Receive
+SYS_Response --> SYS_End
+SYS_Notify --> SYS_End
